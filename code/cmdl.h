@@ -9,7 +9,7 @@ class CMDL {
 
     CMDL(std::string* str, int num);
     ~CMDL();
-    startGame();
+    void startGame();
 
 
 };
