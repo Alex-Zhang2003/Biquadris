@@ -1,4 +1,5 @@
-
+#ifndef CELL_H
+#define CELL_H
 
 class Cell {
     int x;
@@ -16,5 +17,8 @@ public:
     void setCol(int col);
     ~Cell();
 };
+
+
+#endif
 
 
