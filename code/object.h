@@ -23,11 +23,11 @@ public:
     bool placed();
     virtual bool insert() = 0;
     virtual bool rotate(std::string dirction) = 0;
-    std::vector<std::vector<Cell*>>& getBoard();
-    std::vector<Cell*> getCells();
-    int getNum();
+    std::vector<std::vector<Cell*>>& getBoard() const;
+    std::vector<Cell*> getCells() const;
+    int getNum() const ;
     void deleteCell(Cell* val);
-    bool isDropped();
+    bool isDropped() const;
 };
 
 

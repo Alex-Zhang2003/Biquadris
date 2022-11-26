@@ -81,14 +81,14 @@ bool Object::placed(){
 
 }
 
-std::vector<std::vector<Cell*>>& Object::getBoard(){
+std::vector<std::vector<Cell*>>& Object::getBoard() const{
     return board;
 }
-std::vector<Cell*> Object::getCells() {
+std::vector<Cell*> Object::getCells() const{
     return cells;
 }
 
-int Object::getNum() {
+int Object::getNum() const{
     return num;
 }
 
@@ -97,12 +97,13 @@ void Object::deleteCell(Cell* val) {
     for (auto it : cells) {
         if (it == val) {
             cells.erase(cells.begin() + i);
+            num--;
             return;
         }
         i++;
     }
 }
 
-bool Object::isDropped() {
+bool Object::isDropped() const{
     return dropped;
 }
