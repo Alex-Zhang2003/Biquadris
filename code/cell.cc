@@ -1,37 +1,33 @@
 #include "cell.h"
 
 
-Cell::Cell(int x, int y, char c, bool placed):
-    x{x}, y{y}, c{c}, placed{placed} {}
+Cell::Cell(int row, int col, char c):
+    row{row}, col{col}, val{c}, placed{false} {}
 
 bool Cell::isEmpty() const {
     return placed;
 }
 
 char Cell::getChar() const {
-    if (!isEmpty()) return c;
+    return val;
 }
 
 void Cell::setChar(char val) {
-    c = val;
+    this->val = val;
     placed = true;
 }
 
 int Cell::getRow() const {
-    return x;
-}
-
-void Cell::setRow(int row) {
-    x = row;
+    return row;
 }
 
 int Cell::getCol() const {
-    return y;
+    return col;
 }
 
-void Cell::setCol(int col) {
-    y = col;
-}
+ void Cell::setEmpty() {
+    placed = false;
+ }
 
 Cell::~Cell() { }
 

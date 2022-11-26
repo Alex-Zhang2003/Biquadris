@@ -2,19 +2,19 @@
 #define CELL_H
 
 class Cell {
-    int x;
-    int y;
-    char c;
+    const int col;
+    const int row;
+    char val;
     bool placed;
+
 public:
-    Cell(int x, int y, char c, bool placed);
+    Cell(int row, int col, char c);
     bool isEmpty() const;
+    void setEmpty();
     char getChar() const;
     void setChar(char val);
     int getRow() const;
-    void setRow(int row);
     int getCol() const;
-    void setCol(int col);
     ~Cell();
 };
 
