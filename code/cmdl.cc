@@ -6,7 +6,7 @@ CMDL::CMDL(std::string* str, int num): num{num}, str{str} {}
 CMDL::~CMDL() {}
 
 void CMDL::startGame(){
-    bool text = false;
+    bool readText = false;
     bool haveSeed = false;
     int seed = 0;
     std::string file1 = "sequence1.txt";
@@ -15,7 +15,7 @@ void CMDL::startGame(){
 
     for (int i = 1; i < num; i++) {
         if (str[i] == "-text"){
-            text = true;
+            readText = true;
         } else if (str[i] == "-seed") {
             haveSeed = true;
             seed = std::stoi(str[i+1]);
@@ -33,10 +33,10 @@ void CMDL::startGame(){
     }
 
     if (haveSeed == true) {
-        Game* play = new Game(text, level, file1, file2, seed);
+        Game* play = new Game(readText, level, file1, file2, seed);
         play->init();
     } else {
-        Game* play = new Game(text, level, file1, file2);
+        Game* play = new Game(readText, level, file1, file2);
         play->init();
     }
     
