@@ -22,11 +22,44 @@ bool iObject::insert() {
 bool iObject::rotate(std::string dirction){
     if (rotatePos == 0){
         rotatePos = 1;
+        int axisCol = getCells()[0]->getCol();
+        int axisRow = getCells()[0]->getRow();
 
+        for (int i = 1; i <= 3; i++) {
+            if (!getBoard()[axisRow + i][axisCol]->isEmpty()) {
+                return false;
+            }
+        }
 
+        for (int i = 1; i <= 3; i++) {
+            deleteCell(getCells()[i]);
+        }
+
+        for (int i = 1; i <= 3; i++) {
+            getBoard()[axisRow + i][axisCol]->setChar('I');
+        }
+
+        return true;
 
     } else if (rotatePos == 1) {
         rotatePos = 0;
+        int axisCol = getCells()[0]->getCol();
+        int axisRow = getCells()[0]->getRow();
+
+        for (int i = 1; i <= 3; i++) {
+            if (!getBoard()[axisRow][axisCol + i]->isEmpty()) {
+                return false;
+            }
+        }
+
+        for (int i = 1; i <= 3; i++) {
+            deleteCell(getCells()[i]);
+        }
+
+        for (int i = 1; i <= 3; i++) {
+            getBoard()[axisRow][axisCol + i]->setChar('I');
+        }
+        
 
     }
 }

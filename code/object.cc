@@ -96,6 +96,8 @@ void Object::deleteCell(Cell* val) {
     int i = 0;
     for (auto it : cells) {
         if (it == val) {
+            it->setEmpty();
+            it->setChar('\0');
             cells.erase(cells.begin() + i);
             num--;
             return;
