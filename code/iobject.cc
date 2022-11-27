@@ -26,6 +26,10 @@ bool iObject::rotate(std::string dirction){
         int axisRow = getCells()[0]->getRow();
 
         for (int i = 1; i <= 3; i++) {
+            if (axisRow < 0 || axisRow >= 18) {
+                return false;
+            }
+
             if (!getBoard()[axisRow + i][axisCol]->isEmpty()) {
                 return false;
             }
@@ -47,6 +51,10 @@ bool iObject::rotate(std::string dirction){
         int axisRow = getCells()[0]->getRow();
 
         for (int i = 1; i <= 3; i++) {
+            if (axisCol < 0 || axisCol >= 11) {
+                return false;
+            }
+
             if (!getBoard()[axisRow][axisCol + i]->isEmpty()) {
                 return false;
             }

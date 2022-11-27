@@ -4,6 +4,8 @@
 
 class iObject : public Object {
 
+    // rotatePos = 0 means horizontal
+    // rotatePos = 1 means vertical
     int rotatePos;
 
 public:

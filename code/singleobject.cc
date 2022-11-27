@@ -8,6 +8,7 @@ bool SingleObject::insert() {
         return false;
     }
     getBoard()[3][5]->setChar('*');
+    getCells().push_back(getBoard()[3][5]);
     return true;
 }
 

@@ -84,7 +84,8 @@ bool Object::placed(){
 std::vector<std::vector<Cell*>>& Object::getBoard() const{
     return board;
 }
-std::vector<Cell*> Object::getCells() const{
+
+std::vector<Cell*>& Object::getCells() {
     return cells;
 }
 
