@@ -1,4 +1,112 @@
 #include "textdisplay.h"
+#include <iostream>
+#include <string>
+#include <sstream>
+
+TextDisplay::TextDisplay(Player *player1, Player *player2, int HiScore):
+    player1{player1}, player2{player2}, HiScore{HiScore} { }
+
+
+void TextDisplay::printTitle() {
+    std::cout << "       Hi Score: " << HiScore << "       " << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "Player 1:      Player 2:" << std::endl;
+    std::cout << "Level: " << player1->getLevel() << "       " << "Level: " << player2->getLevel() << std::endl;
+    int play1Score = player1->getScore();
+    std::cout << "Score: " << play1Score;
+    std::stringstream ss;
+    ss << play1Score;
+    std::string score1 = ss.str();
+    int lengthLeft = 15 - 9 - score1.length();
+    for (int i = 0; i < lengthLeft; i++) std::cout << " ";
+    std::cout << "Score: " << player2->getScore() << std::endl;
+}
+
+
+void TextDisplay::printBoard() {
+    for (int i = 0; i < 11; i++) std::cout << "-";
+    std::cout << "  ";
+    
+    for (int i = 0; i < 11; i++) std::cout << "-";
+    std::cout << std::endl;
+    
+    for (int i = 0; i < 19; i++) {
+        std::cout << "|";
+        for (int j = 0; i < 11; j++) std::cout << player1->getState(i, j);
+        std::cout << "|  ";
+        
+        std::cout << "|";
+        for (int j = 0; i < 11; j++) std::cout << player2->getState(i, j);
+        std::cout << "|" << std::endl;
+    }
+
+    for (int i = 0; i < 11; i++) std::cout << "-";
+    std::cout << "  ";
+    
+    for (int i = 0; i < 11; i++) std::cout << "-";
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+
+void TextDisplay::setNextOb(char*** next, char val, int start) {
+    if (val == 'O') {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) *next[i][start + j] = 'O';
+        }
+    } else if (val == 'L') {
+        *next[0][start + 2] = 'L';
+        for (int i = 0; i < 3; i++) *next[1][start + i] = 'L';
+    } else if (val == 'T') {
+        *next[0][start + 1] = 'T';
+        for (int i = 0; i < 3; i++) *next[1][i] = 'T';
+    } else if (val == 'S') {
+        for (int i = 1; i < 3; i++) *next[0][start + i] = 'S';
+        for (int i = 0; i < 2; i++) *next[1][start + i] = 'S';
+    } else if (val == 'Z') {
+        for (int i = 0; i < 2; i++) *next[0][start + i] = 'Z';
+        for (int i = 1; i < 3; i++) *next[1][start + i] = 'Z';
+    } else if (val == 'I') {
+        for (int i = 0; i < 4; i++) *next[0][start + i] = 'I';
+    } else if (val == 'J') {
+        *next[0][start] = 'J';
+        for (int i = 0; i < 3; i++) *next[1][start + i] = 'J';
+    } else {
+        *next[0][start] = '*';
+    }
+}
+
+
+void TextDisplay::printNextOb(char*** next) {
+    std::cout << "Next:          Next:" << std::endl;
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 28; j++) std::cout << *next[i][j];
+        if (i == 0) std::cout << std::endl;
+    }
+}
+
+
+void TextDisplay::notify() {
+    printTitle();
+    printBoard();
+    char** next = new char*[2];
+    for (int i = 0; i < 2; i++) {
+        next[i] = new char[28];
+        for (int j = 0; j < 28; j++) next[i][j] = ' ';
+    }
+    char player1Next = player1->getNext();
+    char player2Next = player2->getNext();
+    setNextOb(&next, player1Next, 0);
+    setNextOb(&next, player2Next, 15);
+    printNextOb(&next);
+}
+
+
+TextDisplay::~TextDisplay() {
+    delete player1;
+    delete player2;
+}
 
 
 
