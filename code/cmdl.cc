@@ -1,5 +1,6 @@
 #include <string>
 #include "cmdl.h"
+#include "game.h"
 
 CMDL::CMDL(std::string* str, int num): num{num}, str{str} {}
 
