@@ -10,22 +10,25 @@
 
 class Player : public ABSPlayer{
 
-    std::vector<std::vector<Cell>> board;
-    std::vector<Object> objects;
+    std::vector<std::vector<Cell*>> board;
+    std::vector<Object*> objects;
     Level* level;
     int levelNum;
     int score;
     int stepCount;
-    int isHeavy;
-    bool isBlind;
-    char isForced;
-    Object curObj;
+    int heavy;
+    bool blind;
+    char forced;
+    Object* curObj;
     char nextObj;
-    bool isDropped;
+    bool dropped;
+    int seed;
+    std::string fileName;
 
 public:
 
-
+    Player(int level, bool random, std::string fileName, int seed);
+    ~Player();
     void left(int num = 1);
     void right(int num = 1);
     void down(int num = 1);
@@ -37,8 +40,8 @@ public:
     int getLevel();
     int getScore();
     char getState(int row, int col);
-    void levelup();
-    void leveldown();
+    void levelup(int num);
+    void leveldown(int num);
     void setHeavy(int num = 1);
     void setBlind();
     void setForced(char obj);
@@ -46,17 +49,15 @@ public:
     bool placeObj();
     void update();
 
+private:
 
-
-
-
-
-
-
+    std::vector<int> removeRows();
+    void dropRows(std::vector<int> rows);
+    void updateScore(std::vector<int> rows);
+    void fall();
+    bool rowEmpty(int row);
 };
 
 
 #endif
-
-
 

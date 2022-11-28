@@ -10,12 +10,12 @@ class Object {
 
     std::vector<std::vector<Cell*>>& board;
     std::vector<Cell*> cells;
-    int num;
     bool dropped;
+    int score;
     
 public:
 
-    Object(std::vector<std::vector<Cell*>>& board);
+    Object(std::vector<std::vector<Cell*>>& board, int level);
     bool left();
     bool right();
     bool down();
@@ -23,14 +23,14 @@ public:
     bool placed();
     virtual bool insert() = 0;
     virtual bool rotate(std::string dirction) = 0;
+    bool isDropped() const;
+    bool isGone();
+    int getScore();
 
 protected: 
 
     std::vector<std::vector<Cell*>>& getBoard() const;
     std::vector<Cell*>& getCells();
-    int getNum() const;
-    void deleteCell(Cell* val);
-    bool isDropped() const;
 };
 
 

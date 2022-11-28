@@ -1,7 +1,6 @@
 #include "object.h"
 
-Object::Object(std::vector<std::vector<Cell*>>& board): board{board} {
-    num = 4;
+Object::Object(std::vector<std::vector<Cell*>>& board, int level): board{board}, score{(level + 1) * (level + 1)}{
     dropped = false;
 }
 
@@ -89,24 +88,19 @@ std::vector<Cell*>& Object::getCells() {
     return cells;
 }
 
-int Object::getNum() const{
-    return num;
-}
-
-void Object::deleteCell(Cell* val) {
-    int i = 0;
-    for (auto it : cells) {
-        if (it == val) {
-            it->setEmpty();
-            it->setChar('\0');
-            cells.erase(cells.begin() + i);
-            num--;
-            return;
-        }
-        i++;
-    }
-}
-
 bool Object::isDropped() const{
     return dropped;
+}
+
+bool Object::isGone() {
+    for (auto it : cells) {
+        if (it->isEmpty() == false) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int Object::getScore() {
+    return score;
 }

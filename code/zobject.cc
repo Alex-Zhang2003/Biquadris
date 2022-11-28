@@ -1,6 +1,6 @@
 #include "zobject.h"
 
-zObject::zObject(std::vector<std::vector<Cell*>>& board): Object{board}, rotatePos{0} {}
+zObject::zObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 bool zObject::insert() {
     for (int i = 0; i < 2; i++) {

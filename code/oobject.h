@@ -9,7 +9,7 @@ class oObject : public Object {
 public:
 
     
-    oObject(std::vector<std::vector<Cell*>>& board);
+    oObject(std::vector<std::vector<Cell*>>& board, int level);
     bool insert();
     bool rotate(std::string dirction);
 

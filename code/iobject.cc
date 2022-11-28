@@ -1,6 +1,6 @@
 #include "iobject.h"
 
-iObject::iObject(std::vector<std::vector<Cell*>>& board): Object{board}, rotatePos{0} {}
+iObject::iObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 bool iObject::insert() {
     int tmpRow = 3;
@@ -35,12 +35,14 @@ bool iObject::rotate(std::string dirction){
             }
         }
 
-        for (int i = 1; i <= 3; i++) {
-            deleteCell(getCells()[i]);
+        for (auto it : getCells()) {
+            it->setEmpty();
         }
+        getCells().clear();
 
-        for (int i = 1; i <= 3; i++) {
-            getBoard()[axisRow + i][axisCol]->setChar('I');
+        for (int i = 0; i <= 3; i++) {
+            getCells().push_back(getBoard()[axisRow - i][axisCol]);
+            getCells().back()->setChar('I');
         }
 
         return true;
@@ -60,15 +62,16 @@ bool iObject::rotate(std::string dirction){
             }
         }
 
-        for (int i = 1; i <= 3; i++) {
-            deleteCell(getCells()[i]);
+        for (auto it : getCells()) {
+            it->setEmpty();
         }
+        getCells().clear();
 
-        for (int i = 1; i <= 3; i++) {
-            getBoard()[axisRow][axisCol + i]->setChar('I');
-        }
-        
-
+        for (int i = 0; i <= 3; i++) {
+            getCells().push_back(getBoard()[axisRow][axisCol + i]);
+            getCells().back()->setChar('I');
+        } 
+        return true; 
     }
 }
 
