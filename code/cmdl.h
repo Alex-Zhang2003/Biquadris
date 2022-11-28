@@ -5,7 +5,7 @@
 class CMDL {
 
     int num;
-    char** str;
+    std::string* str;
     
 public: 
 

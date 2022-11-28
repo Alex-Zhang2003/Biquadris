@@ -21,10 +21,10 @@ void CMDL::startGame(){
             seed = std::stoi(str[i+1]);
             i++;
         } else if (str[i] == "-scriptfile1") {
-            file1 = str[i+1]
+            file1 = str[i+1];
             i++;
         } else if (str[i] == "-scriptfile2") {
-            file2 = str[i+1]
+            file2 = str[i+1];
             i++;
         } else if (str[i] == "-startlevel") {
             level = std::stoi(str[i+1]);
