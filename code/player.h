@@ -19,11 +19,12 @@ class Player : public ABSPlayer{
     int isHeavy;
     bool isBlind;
     char isForced;
-    Object* curObj;
+    Object curObj;
     char nextObj;
     bool isDropped;
 
 public:
+
 
     void left(int num = 1);
     void right(int num = 1);
