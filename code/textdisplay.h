@@ -10,7 +10,7 @@ class TextDisplay : public ABSDisplay {
     int HiScore;
 
 public:
-    TextDisplay(Player* player1, Player* player2, int HiScore);
+    TextDisplay(Player* player1, Player* player2);
     void printTitle();
     void printBoard();
     void setNextOb(char** next, char val, int start);

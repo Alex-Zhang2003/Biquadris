@@ -14,7 +14,7 @@ Game::Game(bool textOnly, int level, std::string file1, std::string file2, int s
 
     command = (&player1, &player2);
 
-    textDisplay = (&player1, &player2, hiScore);
+    textDisplay = (&player1, &player2);
 
     if (textOnly == false) {
         graphicDisplay = (&player1, &player2);
