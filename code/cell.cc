@@ -27,9 +27,8 @@ int Cell::getCol() const {
 
  void Cell::setEmpty() {
     placed = false;
+    val = '\0';
  }
 
-Cell::~Cell() { }
-
-
+Cell::~Cell() {}
 

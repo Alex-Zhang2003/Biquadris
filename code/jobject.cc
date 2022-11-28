@@ -1,6 +1,6 @@
 #include "jobject.h"
 
-jObject::jObject(std::vector<std::vector<Cell*>>& board): Object{board}, rotatePos{0} {}
+jObject::jObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 bool jObject::insert() {
     if (getBoard()[2][0]->isEmpty()) {

@@ -11,7 +11,7 @@ class iObject : public Object {
 public:
 
     
-    iObject(std::vector<std::vector<Cell*>>& board);
+    iObject(std::vector<std::vector<Cell*>>& board, int level);
     bool insert();
     bool rotate(std::string dirction);
 

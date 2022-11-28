@@ -1,6 +1,6 @@
 #include "lobject.h"
 
-lObject::lObject(std::vector<std::vector<Cell*>>& board): Object{board}, rotatePos{0} {}
+lObject::lObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 bool lObject::insert() {
     if (getBoard()[2][2]->isEmpty()) {

@@ -20,7 +20,7 @@ void Command::readCommand(){
     int len = curCommand.length();
     std::string aCommand = "";
 
-    for (std::string &it : command) {
+    for (std::string &it : commands) {
 
         std::string tmp = it.substr(0, len);
 

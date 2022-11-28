@@ -4,15 +4,16 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "player.h"
 
 class Command {
 
     std::string curCommand;
+    std::vector<std::string> commands;
     int multiplier;
     Player* player1;
     Player* player2;
     Player* curPlayer;
-    std::vector<std::string> command;
 
     void readNum();
 
@@ -23,9 +24,11 @@ public:
     
     //throws logic error
     void readCommand();
-
     void runCommand();
     void switchPlayer();
+
+    std::string getCommand();
+    int getMultiplier();
 };
 
 

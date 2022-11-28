@@ -31,7 +31,7 @@ class tObject : public Object {
 public:
 
     
-    tObject(std::vector<std::vector<Cell*>>& board);
+    tObject(std::vector<std::vector<Cell*>>& board, int level);
     bool insert();
     bool rotate(std::string dirction);
 
