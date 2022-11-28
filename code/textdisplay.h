@@ -13,8 +13,8 @@ public:
     TextDisplay(Player* player1, Player* player2, int HiScore);
     void printTitle();
     void printBoard();
-    void setNextOb(char*** next, char val, int start);
-    void printNextOb(char*** next);
+    void setNextOb(char** next, char val, int start);
+    void printNextOb(char** next);
     void notify() override;
     ~TextDisplay();
 };

@@ -1,57 +1,47 @@
 #include "graphdisplay.h"
 #include <iostream>
 #include <string>
-#include <sstream>
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2, Xwindow *theScreen, int HiScore):
     player1{player1}, player2{player2}, HiScore{HiScore} {
-        theScreen = new Xwindow{280, 280};
+        theScreen = new Xwindow{300, 300};
     }
 
 
 void GraphDisplay::printTitle() {
-    theScreen->drawString(70, 10, "Hi Score: ");
-    std::stringstream ss;
-    ss << HiScore;
-    std::string HiScore_String = ss.str();
-    theScreen->drawString(170, 10, HiScore_String);
-    theScreen->drawString(0, 40, "Player 1:");
-    theScreen->drawString(150, 40, "Player 2:");
+    theScreen->drawString(80, 10, "Hi Score: ");
+    std::string HiScore_String = std::to_string(HiScore);
+    theScreen->drawString(180, 10, HiScore_String);
+    theScreen->drawString(10, 40, "Player 1:");
+    theScreen->drawString(160, 40, "Player 2:");
 
-    theScreen->drawString(0, 50, "Level: ");
-    int playerLevel = player1->getLevel();
-    ss << playerLevel;
-    std::string level = ss.str();
-    theScreen->drawString(70, 50, level);
-    theScreen->drawString(150, 50, "Level: ");
-    playerLevel = player2->getLevel();
-    ss << playerLevel;
-    level = ss.str();
-    theScreen->drawString(220, 50, level);
+    theScreen->drawString(10, 50, "Level: ");
+    std::string level = std::to_string(player1->getLevel());
+    theScreen->drawString(80, 50, level);
+    theScreen->drawString(160, 50, "Level: ");
+    level = std::to_string(player2->getLevel());
+    theScreen->drawString(230, 50, level);
 
-    theScreen->drawString(0, 60, "Score: ");
-    int playerScore = player1->getScore();
-    ss << playerScore;
-    std::string score = ss.str();
-    theScreen->drawString(70, 60, score);
-    theScreen->drawString(150, 70, "Score: ");
-    playerScore = player2->getScore();
-    ss << playerScore;
-    score = ss.str();
-    theScreen->drawString(220, 70, score);
+    theScreen->drawString(10, 60, "Score: ");
+    std::string score = std::to_string(player1->getScore());
+    theScreen->drawString(80, 60, score);
+    theScreen->drawString(160, 60, "Score: ");
+    score = std::to_string(player2->getScore());
+    theScreen->drawString(230, 60, score);
 }
 
 
-void GraphDisplay::setColor(int x, int y, char c) {
-    if (c == ' ') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Black);
+void Addgraphics::setColor(int x, int y, char c) {
+    if (c == '\0') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Black);
     else if (c == 'T') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Blue);
-    else if (c == 'O') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Brown);
+    else if (c == 'O') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Cyan);
     else if (c == 'J') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Green);
     else if (c == 'L') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Orange);
     else if (c == 'S') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Red);
-    else if (c == 'Z') theScreen->fillRectangle(x, y, 10, 10, Xwindow::White);
+    else if (c == 'Z') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Magenta);
     else if (c == 'I') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Yellow);
-    else theScreen->fillRectangle(x, y, 10, 10, Xwindow::Cyan);
+    else if (c == '?') theScreen->fillRectangle(x, y, 10, 10, Xwindow::White);
+    else theScreen->fillRectangle(x, y, 10, 10, Xwindow::Brown);
 }
 
 
@@ -62,37 +52,37 @@ void GraphDisplay::printBoard() {
         for (int j = 0; j < 11; j++) {
             val1 = player1->getState(i, j);
             val2 = player2->getState(i, j);
-            setColor(0 + j * 10, i * 10 + 80, val1);
-            setColor(150 + j * 10, i * 10 + 80, val2);
+            setColor(10 + j * 10, i * 10 + 80, val1);
+            setColor(160 + j * 10, i * 10 + 80, val2);
         }
     }
 }
 
 
 void GraphDisplay::printNextOb(char next, int start) {
-    if (val == 'O') {
+    if (next == 'O') {
         for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) setColor(start + j * 10, i * 10, 'O');
+            for (int j = 0; j < 2; j++) setColor(start + j * 10, i * 10 + 290, 'O');
         }
-    } else if (val == 'L') {
-        setColor(start + 2 * 10, 0, 'L');
-        for (int i = 0; i < 3; i++) setColor(start + i * 10, 10, 'L');
-    } else if (val == 'T') {
-        setColor(start + 1 * 10, 0, 'T');
-        for (int i = 0; i < 3; i++) setColor(start + i * 10, 10, 'T');
-    } else if (val == 'S') {
-        for (int i = 1; i < 3; i++) setColor(start + i * 10, 0, 'S');
-        for (int i = 0; i < 2; i++) setColor(start + i * 10, 10, 'S');
-    } else if (val == 'Z') {
-        for (int i = 0; i < 2; i++) setColor(start + i * 10, 0, 'Z');
-        for (int i = 1; i < 3; i++) setColor(start + i * 10, 10, 'Z');
-    } else if (val == 'I') {
-        for (int i = 0; i < 4; i++) setColor(start + i * 10, 0, 'I');
-    } else if (val == 'J') {
-        setColor(start, 0, 'J');
-        for (int i = 0; i < 3; i++) setColor(start + i * 10, 10, 'J');
+    } else if (next == 'L') {
+        setColor(start + 2 * 10, 0 + 290, 'L');
+        for (int i = 0; i < 3; i++) setColor(start + i * 10, 10 + 290, 'L');
+    } else if (next == 'T') {
+        setColor(start + 1 * 10, 0 + 290, 'T');
+        for (int i = 0; i < 3; i++) setColor(start + i * 10, 10 + 290, 'T');
+    } else if (next == 'S') {
+        for (int i = 1; i < 3; i++) setColor(start + i * 10, 0 + 290, 'S');
+        for (int i = 0; i < 2; i++) setColor(start + i * 10, 10 + 290, 'S');
+    } else if (next == 'Z') {
+        for (int i = 0; i < 2; i++) setColor(start + i * 10, 0 + 290, 'Z');
+        for (int i = 1; i < 3; i++) setColor(start + i * 10, 10 + 290, 'Z');
+    } else if (next == 'I') {
+        for (int i = 0; i < 4; i++) setColor(start + i * 10, 0 + 290, 'I');
+    } else if (next == 'J') {
+        setColor(start, 0 + 290, 'J');
+        for (int i = 0; i < 3; i++) setColor(start + i * 10, 10 + 290, 'J');
     } else {
-        setColor(start, 10, '*');
+        setColor(start, 10 + 290, '*');
     }
 }
 
@@ -100,18 +90,16 @@ void GraphDisplay::printNextOb(char next, int start) {
 void GraphDisplay::notify() {
     printTitle();
     printBoard();
-    theScreen->drawString(0, 280, "Next:");
-    theScreen->drawString(150, 280, "Next:");
+    theScreen->drawString(10, 280, "Next:");
+    theScreen->drawString(160, 280, "Next:");
     char player1Next = player1->getNext();
     char player2Next = player2->getNext();
-    printNextOb(player1Next, 0);
-    printNextOb(player2Next, 150);
+    printNextOb(player1Next, 10);
+    printNextOb(player2Next, 160);
 }
 
 
 GraphDisplay::~GraphDisplay() {
-    delete player1;
-    delete player2;
     delete theScreen;
 }
 
