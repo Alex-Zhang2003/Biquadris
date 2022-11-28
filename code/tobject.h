@@ -2,27 +2,26 @@
 #define TOBJECT_H
 
 #include "object.h"
-#include "cell.h"
 
 class tObject : public Object {
 
-    // rotatePos = 1 :
+    // rotatePos = 0 :
 
     //     T
     //    TTT
 
-    // rotatePos = 2:
+    // rotatePos = 1:
 
     //      T
     //     TT
     //      T
 
-    // rotatePos = 3:
+    // rotatePos = 2:
 
     //     TTT
     //      T
 
-    // rotatePos = 4:
+    // rotatePos = 3:
     //     T
     //     TT
     //     T

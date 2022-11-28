@@ -1,21 +1,21 @@
-#include "jobject.h"
+#include "lobject.h"
 
-jObject::jObject(std::vector<std::vector<Cell*>>& board): Object{board}, rotatePos{0} {}
+lObject::lObject(std::vector<std::vector<Cell*>>& board): Object{board}, rotatePos{0} {}
 
-bool jObject::insert() {
-    if (getBoard()[2][0]->isEmpty()) {
+bool lObject::insert() {
+    if (getBoard()[2][2]->isEmpty()) {
         for (int i = 0; i < 3; i++) {
             if (getBoard()[3][i]->isEmpty() == false) {
                 return false;
             }
         }
 
-        getCells().push_back(getBoard()[2][0]);
+        getCells().push_back(getBoard()[2][2]);
         getCells().back()->setChar('L');
 
         for (int i = 0; i < 3; i++) {
-            getCells().push_back(getBoard()[3][i]);
-            getCells().back()->setChar('J');
+            getCells().push_back(getBoard()[3][2 - i]);
+            getCells().back()->setChar('L');
         }
 
         return true;
@@ -24,7 +24,7 @@ bool jObject::insert() {
     return false;
 }
 
-bool jObject::rotate(std::string direction) {
+bool lObject::rotate(std::string direction) {
 
     if (direction == "cw") {
 
@@ -34,14 +34,14 @@ bool jObject::rotate(std::string direction) {
 
             rotatePos = 3;
 
-            int axisRow = getCells()[1]->getRow();
-            int axisCol = getCells()[1]->getCol();
+            int axisRow = getCells()[3]->getRow();
+            int axisCol = getCells()[3]->getCol();
 
-            if (getBoard()[axisRow - 2][axisCol]->isEmpty() == false) {
+            if (getBoard()[axisRow - 1][axisCol]->isEmpty() == false) {
                 return false;
             }
 
-            if (getBoard()[axisRow - 2][axisCol + 1]->isEmpty() == false) {
+            if (getBoard()[axisRow - 2][axisCol]->isEmpty() == false) {
                 return false;
             }
 
@@ -50,21 +50,22 @@ bool jObject::rotate(std::string direction) {
             }
             getCells().clear();
 
-            getCells().push_back(getBoard()[axisRow - 2][axisCol + 1]);
-            getCells().back()->setChar('J');
+            getCells().push_back(getBoard()[axisRow][axisCol + 1]);
+            getCells().back()->setChar('T');
 
-            for (int i = 2; i >= 0; i--) {
+            for (int i = 0; i < 3; i++) {
                 getCells().push_back(getBoard()[axisRow - i][axisCol]);
-                getCells().back()->setChar('J');
+                getCells().back()->setChar('L');
             }
+
             return true;
 
         case 1:
 
             rotatePos = 0;
 
-            int axisRow = getCells()[0]->getRow();
-            int axisCol = getCells()[0]->getCol();
+            int axisRow = getCells()[3]->getRow();
+            int axisCol = getCells()[3]->getCol() - 1;
 
             if (getBoard()[axisRow][axisCol]->isEmpty() == false) {
                 return false;
@@ -74,7 +75,7 @@ bool jObject::rotate(std::string direction) {
                 return false;
             }
 
-            if (getBoard()[axisRow - 1][axisCol]->isEmpty() == false) {
+            if (getBoard()[axisRow - 1][axisCol + 2]->isEmpty() == false) {
                 return false;
             }
 
@@ -83,12 +84,12 @@ bool jObject::rotate(std::string direction) {
             }
             getCells().clear();
 
-            getCells().push_back(getBoard()[axisRow - 1][axisCol]);
-            getCells().back()->setChar('J');
+            getCells().push_back(getBoard()[axisRow - 1][axisCol + 2]);
+            getCells().back()->setChar('L');
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 2; i >= 0; i++) {
                 getCells().push_back(getBoard()[axisRow][axisCol + i]);
-                getCells().back()->setChar('J');
+                getCells().back()->setChar('L');
             }
             return true;
             
@@ -96,10 +97,14 @@ bool jObject::rotate(std::string direction) {
 
             rotatePos = 1;
 
-            int axisRow = getCells()[3]->getRow() + 1;
-            int axisCol = getCells()[3]->getCol();
+            int axisRow = getCells()[0]->getRow();
+            int axisCol = getCells()[0]->getCol();
 
-            if (getBoard()[axisRow][axisCol]->isEmpty() == false) {
+            if (getBoard()[axisRow - 2][axisCol]->isEmpty() == false) {
+                return false;
+            }
+
+            if (getBoard()[axisRow - 2][axisCol + 1]->isEmpty() == false) {
                 return false;
             }
 
@@ -107,7 +112,32 @@ bool jObject::rotate(std::string direction) {
                 return false;
             }
 
-            if (getBoard()[axisRow - 2][axisCol + 1]->isEmpty() == false) {
+            for (auto it : getCells()) {
+                it->setEmpty();
+            }
+            getCells().clear();
+
+            getCells().push_back(getBoard()[axisRow - 2][axisCol]);
+            getCells().back()->setChar('L');
+
+            for (int i = 2; i >= 0; i--) {
+                getCells().push_back(getBoard()[axisRow + i][axisCol + 1]);
+                getCells().back()->setChar('L');
+            }
+            return true;
+
+        case 3:
+
+            rotatePos = 2;
+
+            int axisRow = getCells()[1]->getRow();
+            int axisCol = getCells()[1]->getCol();
+
+            if (axisCol + 2 >=11 || getBoard()[axisRow - 1][axisCol + 2]->isEmpty() == false) {
+                return false;
+            }
+
+            if (getBoard()[axisRow - 1][axisCol + 1]->isEmpty() == false) {
                 return false;
             }
 
@@ -117,40 +147,11 @@ bool jObject::rotate(std::string direction) {
             getCells().clear();
 
             getCells().push_back(getBoard()[axisRow][axisCol]);
-            getCells().back()->setChar('J');
+            getCells().back()->setChar('L');
 
             for (int i = 0; i < 3; i++) {
-                getCells().push_back(getBoard()[axisRow + i][axisCol + 1]);
-                getCells().back()->setChar('J');
-            }
-            return true;
-
-        case 3:
-
-            rotatePos = 2;
-
-            int axisRow = getCells()[3]->getRow();
-            int axisCol = getCells()[3]->getCol();
-
-            if (axisCol + 2 >=11 || getBoard()[axisRow][axisCol + 2]->isEmpty() == false) {
-                return false;
-            }
-
-            if (getBoard()[axisRow][axisCol + 1]->isEmpty() == false) {
-                return false;
-            }
-
-            for (auto it : getCells()) {
-                it->setEmpty();
-            }
-            getCells().clear();
-
-            getCells().push_back(getBoard()[axisRow - 1][axisCol]);
-            getCells().back()->setChar('J');
-
-            for (int i = 0; i < 3; i++) {
-                getCells().push_back(getBoard()[axisRow][axisCol + i]);
-                getCells().back()->setChar('J');
+                getCells().push_back(getBoard()[axisRow - 1][axisCol + i]);
+                getCells().back()->setChar('L');
             }
             return true;
         }
@@ -163,73 +164,10 @@ bool jObject::rotate(std::string direction) {
         
             rotatePos = 1;
 
-            int axisRow = getCells()[1]->getRow();
-            int axisCol = getCells()[1]->getCol();
+            int axisRow = getCells()[3]->getRow();
+            int axisCol = getCells()[3]->getCol();
 
             if (getBoard()[axisRow - 1][axisCol + 1]->isEmpty() == false) {
-                return false;
-            }
-
-            if (getBoard()[axisRow - 2][axisCol + 1]->isEmpty() == false) {
-                return false;
-            }
-
-            for (auto it : getCells()) {
-                it->setEmpty();
-            }
-            getCells().clear();
-
-            getCells().push_back(getBoard()[axisRow][axisCol]);
-            getCells().back()->setChar('J');
-
-            for (int i = 0; i <= 2; i++) {
-                getCells().push_back(getBoard()[axisRow - i][axisCol + 1]);
-                getCells().back()->setChar('J');
-            }
-
-            return true;
-
-        case 1:
-
-            rotatePos = 2;
-
-            int axisRow = getCells()[0]->getRow();
-            int axisCol = getCells()[0]->getCol();
-
-            if (getBoard()[axisRow - 1][axisCol]->isEmpty() == false) {
-                return false;
-            }
-
-            if (axisCol + 2 >= 11 || getBoard()[axisRow - 1][axisCol + 2]->isEmpty() == false) {
-                return false;
-            }
-
-            if (getBoard()[axisRow][axisCol + 2]->isEmpty() == false) {
-                return false;
-            }
-
-            for (auto it : getCells()) {
-                it->setEmpty();
-            }
-            getCells().clear();
-
-            getCells().push_back(getBoard()[axisRow][axisCol + 2]);
-            getCells().back()->setChar('J');
-
-            for (int i = 2; i >= 0; i--) {
-                getCells().push_back(getBoard()[axisRow - 1][axisCol + i]);
-                getCells().back()->setChar('J');
-            }
-            return true;
-            
-        case 2:
-
-            rotatePos = 3;
-
-            int axisRow = getCells()[0]->getRow();
-            int axisCol = getCells()[0]->getCol() - 1;
-
-            if (getBoard()[axisRow][axisCol]->isEmpty() == false) {
                 return false;
             }
 
@@ -246,27 +184,32 @@ bool jObject::rotate(std::string direction) {
             }
             getCells().clear();
 
-            getCells().push_back(getBoard()[axisRow - 2][axisCol + 1]);
-            getCells().back()->setChar('J');
+            getCells().push_back(getBoard()[axisRow - 2][axisCol]);
+            getCells().back()->setChar('L');
 
             for (int i = 2; i >= 0; i--) {
-                getCells().push_back(getBoard()[axisRow - i][axisCol]);
-                getCells().back()->setChar('J');
+                getCells().push_back(getBoard()[axisRow - i][axisCol + 1]);
+                getCells().back()->setChar('L');
             }
+
             return true;
 
-        case 3:
+        case 1:
 
-            rotatePos = 0;
+            rotatePos = 2;
 
-            int axisRow = getCells()[3]->getRow();
-            int axisCol = getCells()[3]->getCol();
+            int axisRow = getCells()[0]->getRow() + 2;
+            int axisCol = getCells()[0]->getCol();
 
-            if (axisCol + 2 >=11 || getBoard()[axisRow][axisCol + 2]->isEmpty() == false) {
+            if (getBoard()[axisRow][axisCol]->isEmpty() == false) {
                 return false;
             }
 
-            if (getBoard()[axisRow][axisCol + 1]->isEmpty() == false) {
+            if (getBoard()[axisRow - 1][axisCol]->isEmpty() == false) {
+                return false;
+            }
+
+            if (axisCol + 2 >= 11 || getBoard()[axisRow - 1][axisCol + 2]->isEmpty() == false) {
                 return false;
             }
 
@@ -275,12 +218,70 @@ bool jObject::rotate(std::string direction) {
             }
             getCells().clear();
 
-            getCells().push_back(getBoard()[axisRow - 1][axisCol]);
-            getCells().back()->setChar('J');
+            getCells().push_back(getBoard()[axisRow][axisCol]);
+            getCells().back()->setChar('L');
 
-            for (int i = 0; i <= 2; i++) {
+            for (int i = 0; i < 3; i++) {
+                getCells().push_back(getBoard()[axisRow - 1][axisCol + i]);
+                getCells().back()->setChar('L');
+            }
+            return true;
+            
+        case 2:
+
+            rotatePos = 3;
+
+            int axisRow = getCells()[0]->getRow();
+            int axisCol = getCells()[0]->getCol();
+
+            if (getBoard()[axisRow][axisCol + 1]->isEmpty() == false) {
+                return false;
+            }
+
+            if (getBoard()[axisRow - 2][axisCol]->isEmpty() == false) {
+                return false;
+            }
+
+            for (auto it : getCells()) {
+                it->setEmpty();
+            }
+            getCells().clear();
+
+            getCells().push_back(getBoard()[axisRow][axisCol + 1]);
+            getCells().back()->setChar('L');
+
+            for (int i = 0; i < 3; i++) {
+                getCells().push_back(getBoard()[axisRow - i][axisCol]);
+                getCells().back()->setChar('L');
+            }
+            return true;
+
+        case 3:
+
+            rotatePos = 0;
+
+            int axisRow = getCells()[1]->getRow();
+            int axisCol = getCells()[1]->getCol();
+
+            if (axisCol + 2 >=11 || getBoard()[axisRow][axisCol + 2]->isEmpty() == false) {
+                return false;
+            }
+
+            if (getBoard()[axisRow - 1][axisCol + 2]->isEmpty() == false) {
+                return false;
+            }
+
+            for (auto it : getCells()) {
+                it->setEmpty();
+            }
+            getCells().clear();
+
+            getCells().push_back(getBoard()[axisRow - 1][axisCol + 2]);
+            getCells().back()->setChar('L');
+
+            for (int i = 2; i >= 0; i--) {
                 getCells().push_back(getBoard()[axisRow][axisCol + i]);
-                getCells().back()->setChar('J');
+                getCells().back()->setChar('L');
             }
             return true;
         }
@@ -288,5 +289,4 @@ bool jObject::rotate(std::string direction) {
     }
 
 }
-
 
