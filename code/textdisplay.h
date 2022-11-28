@@ -11,10 +11,10 @@ class TextDisplay : public ABSDisplay {
 
 public:
     TextDisplay(Player* player1, Player* player2, int HiScore);
-    void printTitle() override;
-    void printBoard() override;
-    void setNextOb(char*** next, char val, int start) override;
-    void printNextOb(char*** next) override;
+    void printTitle();
+    void printBoard();
+    void setNextOb(char*** next, char val, int start);
+    void printNextOb(char*** next);
     void notify() override;
     ~TextDisplay();
 };

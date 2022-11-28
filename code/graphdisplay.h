@@ -3,6 +3,7 @@
 #define GRAPHDISPLAY_H
 #include "absdisplay.h"
 #include "window.h"
+#include "player.h"
 
 class GraphDisplay : public ABSDisplay {
     Player* player1;
@@ -11,11 +12,11 @@ class GraphDisplay : public ABSDisplay {
     int HiScore;
 public:
     GraphDisplay(Player* player1, Player* player2, Xwindow* theScreen, int HiScore);
-    void printTitle() override;
-    void printBoard() override;
-    void setNextOb(char*** next, char val, int start) override;
-    void printNextOb(char*** next) override;
-    void notify() override;
+    void printTitle();
+    void setColor(int start, char c);
+    void printBoard();
+    void printNextOb(char next, int start);
+    void notify();
     ~GraphDisplay();
 };
 

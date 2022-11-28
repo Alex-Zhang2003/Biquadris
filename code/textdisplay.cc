@@ -13,10 +13,10 @@ void TextDisplay::printTitle() {
     std::cout << std::endl;
     std::cout << "Player 1:      Player 2:" << std::endl;
     std::cout << "Level: " << player1->getLevel() << "       " << "Level: " << player2->getLevel() << std::endl;
-    int play1Score = player1->getScore();
-    std::cout << "Score: " << play1Score;
+    int player1Score = player1->getScore();
+    std::cout << "Score: " << player1Score;
     std::stringstream ss;
-    ss << play1Score;
+    ss << player1Score;
     std::string score1 = ss.str();
     int lengthLeft = 15 - 9 - score1.length();
     for (int i = 0; i < lengthLeft; i++) std::cout << " ";
