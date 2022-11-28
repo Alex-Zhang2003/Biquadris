@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game(bool textOnly, int level, std::string file1, std::string file2, int seed = 1):
-    textDisplay{textOnly} {
+    textOnly{textOnly} {
     
     p1Dead = false;
     p2Dead = false;
@@ -18,8 +18,7 @@ Game::Game(bool textOnly, int level, std::string file1, std::string file2, int s
 
     if (textOnly == false) {
         graphicDisplay = (&player1, &player2);
-
-    } 
+    }
 }
 
 

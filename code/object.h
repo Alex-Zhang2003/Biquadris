@@ -31,6 +31,7 @@ protected:
 
     std::vector<std::vector<Cell*>>& getBoard() const;
     std::vector<Cell*>& getCells();
+    bool contain(Cell* cell);
 };
 
 

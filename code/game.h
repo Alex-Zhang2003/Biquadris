@@ -21,7 +21,6 @@ class Game {
     Command command;
     TextDisplay textDisplay;
     Graphicdisplay graphicDisplay;
-    int startLevel;
     bool readText;
     
 
@@ -32,7 +31,7 @@ public:
     void init();
     void restart();
     void switchPlayer();
-    void runTurn;
+    void runTurn();
     bool isGameFinished();
 
 
