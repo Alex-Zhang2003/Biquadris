@@ -11,7 +11,7 @@ class GraphDisplay : public ABSDisplay {
     Xwindow* theScreen;
     int HiScore;
 public:
-    GraphDisplay(Player* player1, Player* player2, Xwindow* theScreen, int HiScore);
+    GraphDisplay(Player* player1, Player* player2, int HiScore);
     void printTitle();
     void setColor(int x, int y, char c);
     void printBoard();
