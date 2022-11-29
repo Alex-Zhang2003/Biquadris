@@ -117,6 +117,9 @@ void TextDisplay::notify() {
     setNextOb(player1Next, 0);
     setNextOb(player2Next, 18);
     printNextOb();
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 28; j++) next[i][j] = ' ';
+    }
 }
 
 
