@@ -1,3 +1,5 @@
+command.o cmdl.o game.o object.o iobject.o jobject.o lobject.o sobject.o zobject.o tobject.o oobject.o singleobject.o level.o levelzero.o levelone.o leveltwo.o levelthree.o levelfour.o absplayer.o cell.o absdisplay.o textdisplay.o graphdisplay.o
+
 #include "level.h"
 #include "levelzero.h"
 #include "levelone.h"
@@ -15,9 +17,3 @@
 #include "singleobject.h"
 #include "player.h"
 #include "absplayer.h"
-
-int main () {
-
-
-
-}

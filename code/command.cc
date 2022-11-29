@@ -5,7 +5,7 @@
 #include "game.h"
 
 
-Command::Command(Player* player1, Player* player2, Game* game, std::istream *in = &std::cin): player1{player1}, player2{player2}, in{in}, game{game} {
+Command::Command(Player* player1, Player* player2, Game* game, std::istream *in): player1{player1}, player2{player2}, in{in}, game{game} {
     multiplier = 1;
     curCommand = "";
     curPlayer = player1;
@@ -18,7 +18,7 @@ Command::Command(Player* player1, Player* player2, Game* game, std::istream *in 
 
 Command::~Command(){}
 
-void Command::readCommand(bool sp = false){
+void Command::readCommand(bool sp){
 
     readNum();
     *in >> curCommand;
@@ -118,10 +118,10 @@ void Command::switchPlayer(){
 
 void Command::readNum(){
 
-    char test = in.peek();
+    char test = in->peek();
     int input = 1;
     if (test <= '9' && test >= '0') {
-        in >> input;
+        *in >> input;
     }
     multiplier = input;
 

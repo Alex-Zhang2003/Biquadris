@@ -26,6 +26,9 @@ bool lObject::insert() {
 
 bool lObject::rotate(std::string direction) {
 
+    int axisRow;
+    int axisCol;
+
     if (direction == "cw") {
 
         switch (rotatePos){
@@ -34,8 +37,8 @@ bool lObject::rotate(std::string direction) {
 
             rotatePos = 3;
 
-            int axisRow = getCells()[3]->getRow();
-            int axisCol = getCells()[3]->getCol();
+             axisRow = getCells()[3]->getRow();
+             axisCol = getCells()[3]->getCol();
 
             if (getBoard()[axisRow - 1][axisCol]->isEmpty() == false) {
                 return false;
@@ -51,7 +54,7 @@ bool lObject::rotate(std::string direction) {
             getCells().clear();
 
             getCells().push_back(getBoard()[axisRow][axisCol + 1]);
-            getCells().back()->setChar('T');
+            getCells().back()->setChar('L');
 
             for (int i = 0; i < 3; i++) {
                 getCells().push_back(getBoard()[axisRow - i][axisCol]);
@@ -64,8 +67,8 @@ bool lObject::rotate(std::string direction) {
 
             rotatePos = 0;
 
-            int axisRow = getCells()[3]->getRow();
-            int axisCol = getCells()[3]->getCol() - 1;
+             axisRow = getCells()[3]->getRow();
+             axisCol = getCells()[3]->getCol() - 1;
 
             if (getBoard()[axisRow][axisCol]->isEmpty() == false) {
                 return false;
@@ -97,8 +100,8 @@ bool lObject::rotate(std::string direction) {
 
             rotatePos = 1;
 
-            int axisRow = getCells()[0]->getRow();
-            int axisCol = getCells()[0]->getCol();
+             axisRow = getCells()[0]->getRow();
+             axisCol = getCells()[0]->getCol();
 
             if (getBoard()[axisRow - 2][axisCol]->isEmpty() == false) {
                 return false;
@@ -130,8 +133,8 @@ bool lObject::rotate(std::string direction) {
 
             rotatePos = 2;
 
-            int axisRow = getCells()[1]->getRow();
-            int axisCol = getCells()[1]->getCol();
+             axisRow = getCells()[1]->getRow();
+             axisCol = getCells()[1]->getCol();
 
             if (axisCol + 2 >=11 || getBoard()[axisRow - 1][axisCol + 2]->isEmpty() == false) {
                 return false;
@@ -164,8 +167,8 @@ bool lObject::rotate(std::string direction) {
         
             rotatePos = 1;
 
-            int axisRow = getCells()[3]->getRow();
-            int axisCol = getCells()[3]->getCol();
+             axisRow = getCells()[3]->getRow();
+             axisCol = getCells()[3]->getCol();
 
             if (getBoard()[axisRow - 1][axisCol + 1]->isEmpty() == false) {
                 return false;
@@ -198,8 +201,8 @@ bool lObject::rotate(std::string direction) {
 
             rotatePos = 2;
 
-            int axisRow = getCells()[0]->getRow() + 2;
-            int axisCol = getCells()[0]->getCol();
+             axisRow = getCells()[0]->getRow() + 2;
+             axisCol = getCells()[0]->getCol();
 
             if (getBoard()[axisRow][axisCol]->isEmpty() == false) {
                 return false;
@@ -231,8 +234,8 @@ bool lObject::rotate(std::string direction) {
 
             rotatePos = 3;
 
-            int axisRow = getCells()[0]->getRow();
-            int axisCol = getCells()[0]->getCol();
+             axisRow = getCells()[0]->getRow();
+             axisCol = getCells()[0]->getCol();
 
             if (getBoard()[axisRow][axisCol + 1]->isEmpty() == false) {
                 return false;
@@ -260,8 +263,8 @@ bool lObject::rotate(std::string direction) {
 
             rotatePos = 0;
 
-            int axisRow = getCells()[1]->getRow();
-            int axisCol = getCells()[1]->getCol();
+             axisRow = getCells()[1]->getRow();
+             axisCol = getCells()[1]->getCol();
 
             if (axisCol + 2 >=11 || getBoard()[axisRow][axisCol + 2]->isEmpty() == false) {
                 return false;

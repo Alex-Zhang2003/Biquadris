@@ -1,24 +1,18 @@
 #include "game.h"
 #include <iostream>
 
-Game::Game(bool textOnly, int level, std::string file1, std::string file2, int seed = 1):
-    textOnly{textOnly} {
+Game::Game(bool textOnly, int level, std::string file1, std::string file2, int seed):
+    textOnly{textOnly}, player1{level, false, file1, seed}, player2{level, false, file2, seed}, command{&player1, &player2, this}, textDisplay{&player1, &player2} {
     
     p1Dead = false;
     p2Dead = false;
     hiScore = 0;
     gameFinished = false;
 
-    player1 = (level, false, file1, seed);
-    player2 = (level, false, file2, seed);
     curPlayer = &player1;
 
-    command = (&player1, &player2);
-
-    textDisplay = (&player1, &player2);
-
     if (textOnly == false) {
-        graphicDisplay = (&player1, &player2);
+        // graphicDisplay = new graphicDisplay(&player1, &player2);
     }
 }
 
@@ -27,8 +21,7 @@ void Game::init() {
     while(!gameFinished) {
         // use try catch statement to restart the game
         runTurn();
-        
-        switchPlayer;
+        switchPlayer();
     }
 
     if (playAgain()) {
@@ -70,7 +63,6 @@ void Game::runTurn() {
     curPlayer->updateObj();
 
     if (!curPlayer->insert()) {
-        turnFinished = true;
         if (curPlayer == &player1) {
             p1Dead = true;
         } else {
@@ -93,8 +85,8 @@ void Game::restart() {
     hiScore = 0;
     gameFinished = false;
 
-    player1 = (player1.getLevel(), false, player1.getFile(), player1.getSeed());
-    player2 = (player2.getLevel(), false, player1.getFile(), player2.getSeed());
+    player1 = {player1.getLevel(), false, player1.getFile(), player1.getSeed()};
+    player2 = {player2.getLevel(), false, player1.getFile(), player2.getSeed()};
     curPlayer = &player1;
 
 }

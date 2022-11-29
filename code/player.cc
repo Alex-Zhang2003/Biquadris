@@ -72,7 +72,7 @@ void Player::fall() {
     }
 }
 
-void Player::left(int num = 1){
+void Player::left(int num){
     for (int i = 0; i < num; i++) {
         if (!curObj->left()) {
             break;
@@ -82,7 +82,7 @@ void Player::left(int num = 1){
     fall();
 }
 
-void Player::right(int num = 1){
+void Player::right(int num){
     for (int i = 0; i < num; i++) {
         if (!curObj->right()) {
             break;
@@ -92,7 +92,7 @@ void Player::right(int num = 1){
     fall();
 }
 
-void Player::down(int num = 1){
+void Player::down(int num){
     for (int i = 0; i < num; i++) {
         if (!curObj->down()) {
             break;
@@ -109,7 +109,7 @@ void Player::drop(){
     }
 }
 
-void Player::rotate(std::string direction, int num = 1) {
+void Player::rotate(std::string direction, int num) {
     for (int i = 0; i < num; i++) {
         if (!curObj->rotate(direction)) {
             break;
@@ -128,7 +128,7 @@ bool Player::isBlind() {
 }
 
 char Player::getNext() {
-
+    return nextObj;
 }
 int Player::getLevel() {
     return levelNum;
@@ -198,7 +198,7 @@ void Player::leveldown(int num){
     }
 }
 
-void Player::setHeavy(int num = 1) {
+void Player::setHeavy(int num) {
     heavy += num;
 }
 void Player::setBlind() {
@@ -289,20 +289,20 @@ void Player::updateScore(std::vector<int> rows){
 }
 
 Object* Player::createNewObj(char obj) {
-    Object* tmp;
+    Object* tmp = nullptr;
     if (obj == 'I') {
         tmp = new iObject(board, levelNum);
-    } else if (nextObj = 'J') {
+    } else if (nextObj == 'J') {
         tmp = new jObject(board, levelNum);
-    } else if (nextObj = 'L') {
+    } else if (nextObj == 'L') {
         tmp = new lObject(board, levelNum);
-    } else if (nextObj = 'T') {
+    } else if (nextObj == 'T') {
         tmp = new tObject(board, levelNum);
-    } else if (nextObj = 'S') {
+    } else if (nextObj == 'S') {
         tmp = new sObject(board, levelNum);
-    } else if (nextObj = 'Z') {
+    } else if (nextObj == 'Z') {
         tmp = new zObject(board, levelNum);
-    } else if (nextObj = 'O') {
+    } else if (nextObj == 'O') {
         tmp = new oObject(board, levelNum);
     }
 
@@ -343,7 +343,7 @@ void Player::unsetRandom(){
     random = false;
 }
 
-bool isRandom() {
+bool Player::isRandom() {
     return random;
 }
 

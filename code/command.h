@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include "player.h"
+#include <iostream>
 
 class Game;
 
@@ -24,7 +25,7 @@ class Command {
 
 public:
 
-    Command(Player* player1, Player* player2, Game* game, std::istream *in);
+    Command(Player* player1, Player* player2, Game* game, std::istream *in = &std::cin);
     ~Command();
     
     //throws logic error
