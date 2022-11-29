@@ -5,6 +5,14 @@
 #include "leveltwo.h"
 #include "levelthree.h"
 #include "levelfour.h"
+#include "iobject.h"
+#include "lobject.h"
+#include "jobject.h"
+#include "tobject.h"
+#include "sobject.h"
+#include "zobject.h"
+#include "oobject.h"
+#include "singleobject.h"
 
 Player::Player(int levelNum, bool random, std::string fileName, int seed): 
     levelNum{levelNum}, seed{seed}, fileName{fileName} {
@@ -35,6 +43,7 @@ Player::Player(int levelNum, bool random, std::string fileName, int seed):
     }
 
     curObj = nullptr;
+    nextObj = level->generate();
 }
 
 Player::~Player() {
@@ -46,6 +55,9 @@ Player::~Player() {
     }
 
     // add delete object if objects need to be pointers
+    for (auto it : objects) {
+        delete it;
+    }
 
     delete level;
 
@@ -274,4 +286,44 @@ void Player::updateScore(std::vector<int> rows){
         }
     }
 
+}
+
+void Player::updateObj() {
+
+    if (forced != '\0') {
+        nextObj = forced;
+        forced = '\0';
+    }
+
+    if (nextObj == 'I') {
+        curObj = new iObject(board, levelNum);
+    } else if (nextObj = 'J') {
+        curObj = new jObject(board, levelNum);
+    } else if (nextObj = 'L') {
+        curObj = new lObject(board, levelNum);
+    } else if (nextObj = 'T') {
+        curObj = new tObject(board, levelNum);
+    } else if (nextObj = 'S') {
+        curObj = new sObject(board, levelNum);
+    } else if (nextObj = 'Z') {
+        curObj = new zObject(board, levelNum);
+    } else if (nextObj = 'O') {
+        curObj = new oObject(board, levelNum);
+    }
+
+    objects.push_back(curObj);
+     
+    nextObj = level->generate();
+}
+
+bool Player::insert() {
+    return (curObj->insert());
+}
+
+std::string Player::getFile() {
+    return fileName;
+}
+
+int Player::getSeed() {
+    return seed;
 }

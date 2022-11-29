@@ -13,11 +13,11 @@ class Game {
     
     Player player1;
     Player player2;
+    Player* curPlayer;
     bool p1Dead;
     bool p2Dead;
     int hiScore;
     bool gameFinished;
-    bool turnFinished;
     Command command;
     TextDisplay textDisplay;
     Graphicdisplay graphicDisplay;
@@ -33,6 +33,10 @@ public:
     void switchPlayer();
     void runTurn();
     bool isGameFinished();
+
+private:
+
+    bool playerInput();
 
 
 };

@@ -24,6 +24,7 @@ class Player : public ABSPlayer{
     bool dropped;
     int seed;
     std::string fileName;
+    
 
 public:
 
@@ -48,6 +49,10 @@ public:
     void clear();
     bool placeObj();
     void update();
+    void updateObj();
+    bool insert();
+    std::string getFile();
+    int getSeed();
 
 private:
 
