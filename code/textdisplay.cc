@@ -3,7 +3,13 @@
 #include <string>
 
 TextDisplay::TextDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}{ }
+    player1{player1}, player2{player2}, HiScore{0} { 
+    next = new char*[2];
+    for (int i = 0; i < 2; i++) {
+        next[i] = new char[28];
+        for (int j = 0; j < 28; j++) next[i][j] = ' ';
+    }
+}
 
 void TextDisplay::updateHiScore(int score) {
     HiScore = score;
@@ -65,7 +71,7 @@ void TextDisplay::printBoard() {
 }
 
 
-void TextDisplay::setNextOb(char** next, char val, int start) {
+void TextDisplay::setNextOb(char val, int start) {
     if (val == 'O') {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) next[i][start + j] = 'O';
@@ -93,7 +99,7 @@ void TextDisplay::setNextOb(char** next, char val, int start) {
 }
 
 
-void TextDisplay::printNextOb(char** next) {
+void TextDisplay::printNextOb() {
     std::cout << "Next:             Next:" << std::endl;
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 28; j++) std::cout << next[i][j];
@@ -106,24 +112,17 @@ void TextDisplay::printNextOb(char** next) {
 void TextDisplay::notify() {
     printTitle();
     printBoard();
-    char** next = new char*[2];
-    for (int i = 0; i < 2; i++) {
-        next[i] = new char[28];
-        for (int j = 0; j < 28; j++) next[i][j] = ' ';
-    }
     char player1Next = player1->getNext();
     char player2Next = player2->getNext();
-    setNextOb(next, player1Next, 0);
-    setNextOb(next, player2Next, 18);
-    printNextOb(next);
-    for (int i = 0; i < 2; i++) {
-        delete [] next[i];
-    }
-    delete [] next;
+    setNextOb(player1Next, 0);
+    setNextOb(player2Next, 18);
+    printNextOb();
 }
 
 
 TextDisplay::~TextDisplay() {
+    for (int i = 0; i < 2; i++) delete [] next[i];
+    delete [] next;
 }
 
 

@@ -8,14 +8,15 @@ class TextDisplay : public ABSDisplay {
     Player* player1;
     Player* player2;
     int HiScore;
+    char** next;
 
 public:
     TextDisplay(Player* player1, Player* player2);
     void updateHiScore(int score);
     void printTitle();
     void printBoard();
-    void setNextOb(char** next, char val, int start);
-    void printNextOb(char** next);
+    void setNextOb(char val, int start);
+    void printNextOb();
     void notify() override;
     ~TextDisplay();
 };

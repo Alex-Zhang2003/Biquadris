@@ -3,7 +3,18 @@
 #include <string>
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}{}
+    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0}{0}{
+    board1 = new char*[18];
+    board2 = new char*[18];
+    for (int i = 0; i < 18; i++) {
+        board1[i] = new char[11];
+        board2[i] = new char[11];
+        for (int j = 0; j < 11; j++) {
+            board1[i][j] = ' ';
+            board2[i][j] = ' ';
+        }
+    }
+}
 
 void GraphDisplay::updateHiScore(int score) {
     HiScore = score;
@@ -53,9 +64,15 @@ void GraphDisplay::printBoard() {
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 11; j++) {
             val1 = player1->getState(i, j);
+            if (val1 != board1[i][j]) {
+                setColor(10 + j * 10, i * 10 + 80, val1);
+                board1[i][j] = val1;
+            }
             val2 = player2->getState(i, j);
-            setColor(10 + j * 10, i * 10 + 80, val1);
-            setColor(160 + j * 10, i * 10 + 80, val2);
+            if (val1 != board1[i][j]) {
+                setColor(160 + j * 10, i * 10 + 80, val2);
+                board2[i][j] = val2;
+            }
         }
     }
 }
