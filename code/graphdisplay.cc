@@ -29,7 +29,7 @@ void GraphDisplay::printTitle() {
 }
 
 
-void Addgraphics::setColor(int x, int y, char c) {
+void GraphDisplay::setColor(int x, int y, char c) {
     if (c == '\0') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Black);
     else if (c == 'T') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Blue);
     else if (c == 'O') theScreen->fillRectangle(x, y, 10, 10, Xwindow::Cyan);
