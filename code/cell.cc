@@ -2,10 +2,10 @@
 
 
 Cell::Cell(int row, int col, char c):
-    row{row}, col{col}, val{c}, placed{false} {}
+    row{row}, col{col}, val{c}, empty{true} {}
 
 bool Cell::isEmpty() const {
-    return placed;
+    return empty;
 }
 
 char Cell::getChar() const {
@@ -14,7 +14,7 @@ char Cell::getChar() const {
 
 void Cell::setChar(char val) {
     this->val = val;
-    placed = true;
+    empty = false;
 }
 
 int Cell::getRow() const {
@@ -26,7 +26,7 @@ int Cell::getCol() const {
 }
 
  void Cell::setEmpty() {
-    placed = false;
+    empty = true;
     val = '\0';
  }
 

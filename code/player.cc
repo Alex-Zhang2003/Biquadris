@@ -14,8 +14,10 @@
 #include "oobject.h"
 #include "singleobject.h"
 
+#include <iostream>
+
 Player::Player(int levelNum, bool random, std::string fileName, int seed): 
-    levelNum{levelNum}, seed{seed}, fileName{fileName}, random{random} {
+    levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, forced{'\0'}, curObj{nullptr}, dropped{false}, seed{seed}, fileName{fileName}, random{random}, curObjType{'\0'} {
  
     switch (levelNum) {
         case 0:
@@ -34,15 +36,12 @@ Player::Player(int levelNum, bool random, std::string fileName, int seed):
             level = new LevelFour(levelNum, seed, random, fileName);
             break;
     }
-
     board = std::vector<std::vector<Cell*>> (18);
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 11; j++) {
             board[i].push_back(new Cell(i, j, '\0'));
         }
     }
-
-    curObj = nullptr;
     nextObj = level->generate();
 }
 
@@ -95,6 +94,7 @@ void Player::right(int num){
 void Player::down(int num){
     for (int i = 0; i < num; i++) {
         if (!curObj->down()) {
+            dropped = true;
             break;
         }
     }
@@ -317,7 +317,7 @@ void Player::updateObj() {
     }
 
     curObj = createNewObj(nextObj);
-
+    curObjType = nextObj;
     objects.push_back(curObj);
      
     nextObj = level->generate();
@@ -356,8 +356,13 @@ void Player::replaceCur(char obj) {
     delete curObj;
 
     curObj = createNewObj(obj);
+    curObjType = obj;
     
     //what if cannot insert?
     curObj->insert();
     
+}
+
+char Player::getCurObj() {
+    return curObjType;
 }

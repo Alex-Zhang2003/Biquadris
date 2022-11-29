@@ -9,7 +9,7 @@ class LevelZero : public Level {
 
 public:
 
-    LevelZero(int level, std::string readFile = "");
+    LevelZero(int level, std::string file);
     char generate();
 
 

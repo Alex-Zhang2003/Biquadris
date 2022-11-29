@@ -2,7 +2,7 @@
 #include <fstream>
 #include <exception>
 
-LevelZero::LevelZero(int level, std::string readFile): Level{level}, word{0} {}
+LevelZero::LevelZero(int level, std::string file): Level{level}, word{0}, file{file} {}
 
 char LevelZero::generate() {
     
@@ -25,6 +25,7 @@ char LevelZero::generate() {
         throw (std::invalid_argument{"the character entered for LeveZero is not valid"});
     }
 
+    
 }
 
 

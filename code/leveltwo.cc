@@ -1,5 +1,6 @@
 #include "leveltwo.h"
 #include <cstdlib>
+#include <climits>
 
 LevelTwo::LevelTwo(int level, int seed): Level{level}, seed{seed}, prob{1/7} {
     std::srand(seed);

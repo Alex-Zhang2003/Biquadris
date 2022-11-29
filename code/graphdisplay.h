@@ -12,6 +12,7 @@ class GraphDisplay : public ABSDisplay {
     int HiScore;
 public:
     GraphDisplay(Player* player1, Player* player2);
+    void updateHiScore(int score);
     void printTitle();
     void setColor(int x, int y, char c);
     void printBoard();

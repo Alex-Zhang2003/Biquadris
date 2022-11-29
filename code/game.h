@@ -4,7 +4,7 @@
 #include <string>
 #include "player.h"
 #include "textdisplay.h"
-// #include "graphdisplay.h"
+#include "graphdisplay.h"
 #include "command.h"
 
 
@@ -21,7 +21,7 @@ class Game {
     bool gameFinished;
     Command command;
     TextDisplay textDisplay;
-    // Graphicdisplay *graphicDisplay;
+    GraphDisplay *graphicDisplay;
     bool textOnly;
     
 

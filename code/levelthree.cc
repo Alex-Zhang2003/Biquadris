@@ -1,6 +1,7 @@
 #include "levelthree.h"
 #include <cstdlib>
-#include "fstream"
+#include <fstream>
+#include <climits>
 
 LevelThree::LevelThree(int level, int seed, bool random, std::string file): Level{level}, seed{seed}, random{random}, file{file}, prob{1/9} {
     std::srand(seed);

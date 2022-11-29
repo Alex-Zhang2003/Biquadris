@@ -5,7 +5,7 @@ class Cell {
     const int col;
     const int row;
     char val;
-    bool placed;
+    bool empty;
 
 public:
     Cell(int row, int col, char c);

@@ -25,6 +25,7 @@ class Player : public ABSPlayer{
     int seed;
     std::string fileName;
     bool random;
+    char curObjType;
     
 public:
 
@@ -58,6 +59,7 @@ public:
     bool isRandom();
     void changeLevelFile(std::string newFile);
     void replaceCur(char obj);
+    char getCurObj();
 
 private:
 

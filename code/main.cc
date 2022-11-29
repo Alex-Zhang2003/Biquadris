@@ -4,5 +4,6 @@
 int main(int argc, std::string* argv) {
 
     CMDL game{argv, argc};
+    game.startGame();
     
 }

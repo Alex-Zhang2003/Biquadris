@@ -3,7 +3,11 @@
 #include <string>
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 300}}{}
+    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}{}
+
+void GraphDisplay::updateHiScore(int score) {
+    HiScore = score;
+}
 
 
 void GraphDisplay::printTitle() {

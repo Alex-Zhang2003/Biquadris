@@ -11,6 +11,7 @@ class TextDisplay : public ABSDisplay {
 
 public:
     TextDisplay(Player* player1, Player* player2);
+    void updateHiScore(int score);
     void printTitle();
     void printBoard();
     void setNextOb(char** next, char val, int start);

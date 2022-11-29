@@ -1,5 +1,6 @@
 #include "levelone.h"
 #include <cstdlib>
+#include <climits>
 
 LevelOne::LevelOne(int level, int seed): Level{level}, seed{seed}, SZProb{1/12}, otherProb{1/6} {
     srand(seed);

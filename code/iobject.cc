@@ -1,4 +1,5 @@
 #include "iobject.h"
+#include <iostream>
 
 iObject::iObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 
@@ -7,6 +8,7 @@ bool iObject::insert() {
 
     for (int tmpCol = 0; tmpCol < 4; tmpCol++) {
         if (getBoard()[tmpRow][tmpCol]->isEmpty() == false) {
+            std::cout << "cannot place I at col " << tmpCol << std::endl;
             return false;
         }
     }
@@ -16,6 +18,7 @@ bool iObject::insert() {
         getCells().push_back(getBoard()[tmpRow][tmpCol]);
     }
 
+    std::cout << "placed I" << std::endl;
     return true;
 }
 

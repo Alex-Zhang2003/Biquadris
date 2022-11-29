@@ -1,4 +1,5 @@
 #include "jobject.h"
+#include <iostream>
 
 jObject::jObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 
@@ -6,21 +7,23 @@ bool jObject::insert() {
     if (getBoard()[2][0]->isEmpty()) {
         for (int i = 0; i < 3; i++) {
             if (getBoard()[3][i]->isEmpty() == false) {
+                std::cout << "J cannot be inserted" << std::endl;
                 return false;
             }
         }
 
         getCells().push_back(getBoard()[2][0]);
-        getCells().back()->setChar('L');
+        getCells().back()->setChar('J');
 
         for (int i = 0; i < 3; i++) {
             getCells().push_back(getBoard()[3][i]);
             getCells().back()->setChar('J');
         }
-
+        std::cout << "J inserted" << std::endl;
         return true;
 
-    } 
+    }
+    std::cout << "J cannot be inserted" << std::endl;
     return false;
 }
 

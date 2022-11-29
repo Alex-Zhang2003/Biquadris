@@ -1,6 +1,7 @@
 #include "levelfour.h"
 #include <cstdlib>
 #include <fstream>
+#include <climits>
 
 LevelFour::LevelFour(int level, int seed, bool random, std::string file): Level{level}, seed{seed}, random{random}, file{file}, prob{1/9} {
     word = 0;

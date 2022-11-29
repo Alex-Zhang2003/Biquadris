@@ -5,6 +5,10 @@
 TextDisplay::TextDisplay(Player *player1, Player *player2):
     player1{player1}, player2{player2}{ }
 
+void TextDisplay::updateHiScore(int score) {
+    HiScore = score;
+}
+
 
 void TextDisplay::printTitle() {
     std::cout << "        Hi Score: " << HiScore << "      " << std::endl;
