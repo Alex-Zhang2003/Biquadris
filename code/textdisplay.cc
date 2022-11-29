@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 
-TextDisplay::TextDisplay(Player *player1, Player *player2, int HiScore):
-    player1{player1}, player2{player2}, HiScore{HiScore} { }
+TextDisplay::TextDisplay(Player *player1, Player *player2):
+    player1{player1}, player2{player2}{ }
 
 
 void TextDisplay::printTitle() {

@@ -2,10 +2,8 @@
 #include <iostream>
 #include <string>
 
-GraphDisplay::GraphDisplay(Player *player1, Player *player2, Xwindow *theScreen, int HiScore):
-    player1{player1}, player2{player2}, HiScore{HiScore} {
-        theScreen = new Xwindow{300, 300};
-    }
+GraphDisplay::GraphDisplay(Player *player1, Player *player2):
+    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 300}}{}
 
 
 void GraphDisplay::printTitle() {
