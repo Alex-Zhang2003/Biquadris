@@ -31,3 +31,7 @@ void LevelThree::noRandom() {
     random == false;
 }
 
+void LevelThree::changeFile(std::string newFile) {
+    file = newFile;
+}
+

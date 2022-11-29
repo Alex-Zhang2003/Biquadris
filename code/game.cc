@@ -27,6 +27,7 @@ void Game::init() {
     while(!gameFinished) {
         // use try catch statement to restart the game
         runTurn();
+        
         switchPlayer;
     }
 
@@ -81,6 +82,7 @@ void Game::runTurn() {
     while (!curPlayer->isDropped()) {
         command.readCommand();
         command.runCommand();
+        curPlayer->notifyDisplay();
     }
 }
 

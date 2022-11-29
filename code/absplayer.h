@@ -10,12 +10,11 @@ class ABSPlayer {
 
   std::vector<ABSDisplay*> displays;
 
-protected:
-
-  void notifyDisplay();
+  
 
 public:
 
+  void notifyDisplay();
   void attach(ABSDisplay *o);
   void detach(ABSDisplay *o);
   virtual ~ABSPlayer() = default;

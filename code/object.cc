@@ -149,3 +149,9 @@ bool Object::isGone() {
 int Object::getScore() {
     return score;
 }
+
+void Object::clear() {
+    for (auto it : cells) {
+        it->setEmpty();
+    }
+}

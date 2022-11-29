@@ -26,6 +26,7 @@ public:
     bool isDropped() const;
     bool isGone();
     int getScore();
+    void clear();
 
 protected: 
 

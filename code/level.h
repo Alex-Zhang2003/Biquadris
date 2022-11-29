@@ -6,7 +6,6 @@
 class Level {
 
     int level;
-    char cur;
 
 public:
 
@@ -15,7 +14,7 @@ public:
     // throws invalid arguments ?
     virtual char generate() = 0;
     int getLevel() const;
-    char getCur() const;
+    virtual void changeFile(std::string newFile);
 
 };
 

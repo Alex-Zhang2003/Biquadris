@@ -15,7 +15,7 @@
 #include "singleobject.h"
 
 Player::Player(int levelNum, bool random, std::string fileName, int seed): 
-    levelNum{levelNum}, seed{seed}, fileName{fileName} {
+    levelNum{levelNum}, seed{seed}, fileName{fileName}, random{random} {
  
     switch (levelNum) {
         case 0:
@@ -288,6 +288,27 @@ void Player::updateScore(std::vector<int> rows){
 
 }
 
+Object* Player::createNewObj(char obj) {
+    Object* tmp;
+    if (obj == 'I') {
+        tmp = new iObject(board, levelNum);
+    } else if (nextObj = 'J') {
+        tmp = new jObject(board, levelNum);
+    } else if (nextObj = 'L') {
+        tmp = new lObject(board, levelNum);
+    } else if (nextObj = 'T') {
+        tmp = new tObject(board, levelNum);
+    } else if (nextObj = 'S') {
+        tmp = new sObject(board, levelNum);
+    } else if (nextObj = 'Z') {
+        tmp = new zObject(board, levelNum);
+    } else if (nextObj = 'O') {
+        tmp = new oObject(board, levelNum);
+    }
+
+    return tmp;
+}
+
 void Player::updateObj() {
 
     if (forced != '\0') {
@@ -295,21 +316,7 @@ void Player::updateObj() {
         forced = '\0';
     }
 
-    if (nextObj == 'I') {
-        curObj = new iObject(board, levelNum);
-    } else if (nextObj = 'J') {
-        curObj = new jObject(board, levelNum);
-    } else if (nextObj = 'L') {
-        curObj = new lObject(board, levelNum);
-    } else if (nextObj = 'T') {
-        curObj = new tObject(board, levelNum);
-    } else if (nextObj = 'S') {
-        curObj = new sObject(board, levelNum);
-    } else if (nextObj = 'Z') {
-        curObj = new zObject(board, levelNum);
-    } else if (nextObj = 'O') {
-        curObj = new oObject(board, levelNum);
-    }
+    curObj = createNewObj(nextObj);
 
     objects.push_back(curObj);
      
@@ -326,4 +333,31 @@ std::string Player::getFile() {
 
 int Player::getSeed() {
     return seed;
+}
+
+void Player::setRandom() {
+    random = true;
+}
+
+void Player::unsetRandom(){
+    random = false;
+}
+
+bool isRandom() {
+    return random;
+}
+
+void Player::changeLevelFile(std::string newFile) {
+    level->changeFile(newFile);
+}
+
+void Player::replaceCur(char obj) {
+    curObj->clear();
+    delete curObj;
+
+    curObj = createNewObj(obj);
+    
+    //what if cannot insert?
+    curObj->insert();
+    
 }

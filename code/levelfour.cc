@@ -31,4 +31,7 @@ void LevelFour::noRandom() {
     random == false;
 }
 
+void LevelFour::changeFile(std::string newFile) {
+    file = newFile;
+}
 

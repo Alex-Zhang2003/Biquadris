@@ -16,6 +16,7 @@ public:
     char generate();
     void setRandom();
     void noRandom();
+    void changeFile(std::string newFile);
 
 
 };

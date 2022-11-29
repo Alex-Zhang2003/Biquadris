@@ -6,24 +6,29 @@
 #include <map>
 #include "player.h"
 
+class Game;
+
 class Command {
 
     std::string curCommand;
     std::vector<std::string> commands;
+    std::vector<std::string> special;
     int multiplier;
     Player* player1;
     Player* player2;
     Player* curPlayer;
+    std::istream *in;
+    Game* game;
 
     void readNum();
 
 public:
 
-    Command(Player* player1, Player* player2);
+    Command(Player* player1, Player* player2, Game* game, std::istream *in);
     ~Command();
     
     //throws logic error
-    void readCommand();
+    void readCommand(bool special = false);
     void runCommand();
     void switchPlayer();
 

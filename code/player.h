@@ -24,8 +24,8 @@ class Player : public ABSPlayer{
     bool dropped;
     int seed;
     std::string fileName;
+    bool random;
     
-
 public:
 
     Player(int level, bool random, std::string fileName, int seed);
@@ -53,6 +53,11 @@ public:
     bool insert();
     std::string getFile();
     int getSeed();
+    void setRandom();
+    void unsetRandom();
+    bool isRandom();
+    void changeLevelFile(std::string newFile);
+    void replaceCur(char obj);
 
 private:
 
@@ -61,6 +66,7 @@ private:
     void updateScore(std::vector<int> rows);
     void fall();
     bool rowEmpty(int row);
+    Object* createNewObj(char obj);
 };
 
 
