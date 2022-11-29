@@ -69,7 +69,7 @@ void GraphDisplay::printBoard() {
                 board1[i][j] = val1;
             }
             val2 = player2->getState(i, j);
-            if (val1 != board1[i][j]) {
+            if (val2 != board2[i][j]) {
                 setColor(160 + j * 10, i * 10 + 80, val2);
                 board2[i][j] = val2;
             }
@@ -113,6 +113,12 @@ void GraphDisplay::notify() {
     theScreen->drawString(160, 280, "Next:");
     char player1Next = player1->getNext();
     char player2Next = player2->getNext();
+    for (int i = 0; i < 4; i++) {
+        theScreen->fillRectangle(10 + i * 10, 290, 10, 10, Xwindow::White);
+        theScreen->fillRectangle(160 + i * 10, 290, 10, 10, Xwindow::White);
+        theScreen->fillRectangle(10 + i * 10, 300, 10, 10, Xwindow::White);
+        theScreen->fillRectangle(160 + i * 10, 300, 10, 10, Xwindow::White);
+    }
     printNextOb(player1Next, 10);
     printNextOb(player2Next, 160);
 }
