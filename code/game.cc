@@ -40,6 +40,7 @@ void Game::init() {
         if (p1Dead && p2Dead) {
             break;
         }
+        curPlayer->notifyDisplay();
         switchPlayer();
         std::cout << "switch turn" << std::endl;
     }
@@ -101,7 +102,6 @@ void Game::runTurn() {
         std::cout << "read Player Command" << std::endl;
         command.readCommand();
         command.runCommand();
-        curPlayer->notifyDisplay();
     }
 
     curPlayer->notifyDisplay();
