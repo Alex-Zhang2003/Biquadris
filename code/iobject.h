@@ -1,6 +1,6 @@
 #ifndef IOBJECT_H
 #define IOBJECT_H
-#include <object.h>
+#include "object.h"
 
 class iObject : public Object {
 

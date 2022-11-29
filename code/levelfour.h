@@ -9,6 +9,7 @@ class LevelFour : public Level {
     const double prob;
     bool random;
     std::string file;
+    int word;
 
 public:
 
