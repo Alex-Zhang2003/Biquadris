@@ -17,7 +17,7 @@
 #include <iostream>
 
 Player::Player(int levelNum, bool random, std::string fileName, int seed): 
-    levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, forced{'\0'}, curObj{nullptr}, dropped{false}, seed{seed}, fileName{fileName}, random{random}, curObjType{'\0'} {
+    levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, forced{'\0'}, curObj{nullptr}, dropped{false}, seed{seed}, fileName{fileName}, random{random}, curObjType{'\0'}, dead{false} {
  
     switch (levelNum) {
         case 0:
@@ -222,12 +222,6 @@ void Player::clear(){
 
 }
 
-bool Player::placeObj(){
-
-    return curObj->insert();
-
-}
-
 void Player::update(){
     std::vector<int> rows = removeRows();
     dropRows(rows);
@@ -237,14 +231,7 @@ void Player::update(){
 std::vector<int> Player::removeRows(){
     std::vector<int> rows;
     for (int i = 3; i < 18; i++) {
-        bool remove = true;
-        for (int j = 0; j < 11; j++) {
-            if (board[i][j]->isEmpty() == false) {
-                remove = false;
-                break;
-            }
-        }
-        if (remove == true) {
+        if (rowEmpty(i)) {
             rows.push_back(i);
             for (int j = 0; j < 11; j++) {
                 board[i][j]->setEmpty();
@@ -256,7 +243,7 @@ std::vector<int> Player::removeRows(){
 
 bool Player::rowEmpty(int row){
     for (int j = 0; j < 11; j++) {
-        if (board[row][j]->isEmpty() == false) {
+        if (board[row][j]->isEmpty()) {
             return false;
         }
     }
@@ -266,26 +253,25 @@ bool Player::rowEmpty(int row){
 void Player::dropRows(std::vector<int> rows) {
     int len = rows.size();
     for (int i = 0; i < len; i++) {
-        for (int j = rows.back(); j > 3; j--) {
+        for (int j = rows.back(); j >= 3; j--) {
             rows.pop_back();
             for (int k = 0; k < 11; k++) {
-                Cell* tmp = board[j][k];
-                board[j][k] = new Cell(board[j - 1][k]->getRow(), board[j - 1][k]->getCol(), board[j - 1][k]->getChar());
-                delete tmp;
+                board[j][k]->setChar(board[j - 1][k]->getChar());
             }
         }
     }
 }
 
 void Player::updateScore(std::vector<int> rows){
-    score += (rows.size() + levelNum) * (rows.size() + levelNum);
-    for (auto it : objects) {
-        if (it->isGone()) {
-            score += it->getScore();
-            // consider deleting for better performance ?
+    if (rows.size() > 0) {
+        score += (rows.size() + levelNum) * (rows.size() + levelNum);
+        for (auto it : objects) {
+            if (it->isGone()) {
+                score += it->getScore();
+                // consider deleting objects for better performance ?
+            }
         }
     }
-
 }
 
 Object* Player::createNewObj(char obj) {
@@ -321,10 +307,16 @@ void Player::updateObj() {
     objects.push_back(curObj);
      
     nextObj = level->generate();
+    dropped = false;
+
 }
 
 bool Player::insert() {
-    return (curObj->insert());
+    if (!curObj->insert()) {
+        dead = true;
+    }
+    std::cout << "During insert: " << dead << std::endl;
+    return !dead;
 }
 
 std::string Player::getFile() {
@@ -358,11 +350,14 @@ void Player::replaceCur(char obj) {
     curObj = createNewObj(obj);
     curObjType = obj;
     
-    //what if cannot insert?
-    curObj->insert();
+    insert();
     
 }
 
 char Player::getCurObj() {
     return curObjType;
+}
+
+bool Player::isDead() {
+    return dead;
 }

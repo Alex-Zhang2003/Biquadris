@@ -22,6 +22,7 @@ public:
     void printNextOb(char next, int start);
     void notify() override;
     ~GraphDisplay();
+    void updateBoard();
 };
 
 

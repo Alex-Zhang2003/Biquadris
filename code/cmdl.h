@@ -5,11 +5,11 @@
 class CMDL {
 
     int num;
-    std::string* str;
+    char** str;
     
 public: 
 
-    CMDL(std::string* str, int num);
+    CMDL(char** str, int num);
     ~CMDL();
     void startGame();
 

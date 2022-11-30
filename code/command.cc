@@ -108,23 +108,21 @@ void Command::runCommand(){
 
 }
 
-void Command::switchPlayer(){
-    if (curPlayer == player1) {
-        curPlayer = player2;
-    } else {
-        curPlayer = player1;
-    }
+void Command::switchPlayer(Player* player){
+    curPlayer = player;
 }
 
 void Command::readNum(){
 
-    char test = in->peek();
     int input = 1;
-    if (test <= '9' && test >= '0') {
-        *in >> input;
+    if (*in >> input) {
+        if (input > 1) {
+            multiplier = input;
+        }
+        multiplier = input;
+    } else {
+        in->clear();
     }
-    multiplier = input;
-
 }
 
 

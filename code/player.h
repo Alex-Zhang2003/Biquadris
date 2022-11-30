@@ -26,6 +26,7 @@ class Player : public ABSPlayer{
     std::string fileName;
     bool random;
     char curObjType;
+    bool dead;
     
 public:
 
@@ -48,7 +49,6 @@ public:
     void setBlind();
     void setForced(char obj);
     void clear();
-    bool placeObj();
     void update();
     void updateObj();
     bool insert();
@@ -60,6 +60,7 @@ public:
     void changeLevelFile(std::string newFile);
     void replaceCur(char obj);
     char getCurObj();
+    bool isDead();
 
 private:
 

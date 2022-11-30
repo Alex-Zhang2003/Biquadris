@@ -14,11 +14,11 @@ bool sObject::insert() {
         }
     }
     for (int i = 0; i < 2; i++) {
-        getCells().push_back(getBoard()[3][i + 1]);
+        getCells().push_back(getBoard()[3][i]);
         getCells().back()->setChar('S');
     }
     for (int i = 0; i < 2; i++) {
-        getCells().push_back(getBoard()[2][i]);
+        getCells().push_back(getBoard()[2][i + 1]);
         getCells().back()->setChar('S');
     }
     return true;
@@ -76,7 +76,7 @@ bool sObject::rotate(std::string direction) {
 
         for (int i = 0; i < 2; i++) {
             getCells().push_back(getBoard()[axisRow][axisCol + i]);
-            getCells().back()->setChar('Z');
+            getCells().back()->setChar('S');
         }
         for (int i = 1; i < 3; i++) {
             getCells().push_back(getBoard()[axisRow - 1][axisCol + i]);

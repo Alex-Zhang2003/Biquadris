@@ -128,5 +128,5 @@ TextDisplay::~TextDisplay() {
     delete [] next;
 }
 
-
+void TextDisplay::updateBoard() {}
 

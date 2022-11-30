@@ -1,5 +1,7 @@
 #include "object.h"
 
+#include <iostream>
+
 Object::Object(std::vector<std::vector<Cell*>>& board, int level): board{board}, score{(level + 1) * (level + 1)}{
     dropped = false;
 }
@@ -38,11 +40,15 @@ bool Object::left(){
         int col = it->getCol() - 1;
         int row = it->getRow();
         tmp.push_back(board[row][col]);
-        tmp.back()->setChar(board[row][col + 1]->getChar());
-        board[row][col + 1]->setEmpty();
+        tmp.back()->setChar(it->getChar());
     }
+    std::swap(tmp, cells);
 
-    cells = tmp;
+    for (auto it : tmp) {
+        if (!contain(it)) {
+            it->setEmpty();
+        }
+    }
     return true;
     
 }
@@ -54,11 +60,13 @@ bool Object::right(){
         int row = it->getRow();
 
         if (col >= 11) {
+            std::cout << "right out of bounds" << std::endl;
             return false;
         }
 
         if (board[row][col]->isEmpty() == false) {
             if (!contain(board[row][col])) {
+                std::cout << row << "   " << col << "not empty, right failed" << std::endl;
                 return false;
             }
         }
@@ -70,11 +78,16 @@ bool Object::right(){
         int col = it->getCol() + 1;
         int row = it->getRow();
         tmp.push_back(board[row][col]);
-        tmp.back()->setChar(board[row][col - 1]->getChar());
-        board[row][col - 1]->setEmpty();
+        tmp.back()->setChar(it->getChar());
     }
 
-    cells = tmp;
+    std::swap(tmp, cells);
+
+    for (auto it : tmp) {
+        if (!contain(it)) {
+            it->setEmpty();
+        }
+    }
     return true;
 
 }
@@ -102,11 +115,16 @@ bool Object::down(){
         int col = it->getCol();
         int row = it->getRow() + 1;
         tmp.push_back(board[row][col]);
-        tmp.back()->setChar(board[row - 1][col]->getChar());
-        board[row - 1][col]->setEmpty();
+        tmp.back()->setChar(it->getChar());
     }
 
-    cells = tmp;
+    std::swap(tmp, cells);
+
+    for (auto it : tmp) {
+        if (!contain(it)) {
+            it->setEmpty();
+        }
+    }
     return true;
 
 }

@@ -3,7 +3,7 @@
 #include <string>
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0}{0}{
+    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0}{
     board1 = new char*[18];
     board2 = new char*[18];
     for (int i = 0; i < 18; i++) {
@@ -22,6 +22,12 @@ void GraphDisplay::updateHiScore(int score) {
 
 
 void GraphDisplay::printTitle() {
+    theScreen->fillRectangle(180, 10, 10, 10, Xwindow::White);
+    theScreen->fillRectangle(80, 50, 10, 10, Xwindow::White);
+    theScreen->fillRectangle(230, 50, 10, 10, Xwindow::White);
+    theScreen->fillRectangle(80, 60, 10, 10, Xwindow::White);
+    theScreen->fillRectangle(230, 60, 10, 10, Xwindow::White);
+    
     theScreen->drawString(80, 10, "Hi Score: ");
     std::string HiScore_String = std::to_string(HiScore);
     theScreen->drawString(180, 10, HiScore_String);
@@ -128,4 +134,6 @@ GraphDisplay::~GraphDisplay() {
     delete theScreen;
 }
 
-
+void GraphDisplay::updateBoard() {
+    printBoard();
+}

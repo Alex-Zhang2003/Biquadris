@@ -10,6 +10,7 @@ class ABSDisplay {
 public:
     virtual void notify() = 0;
     virtual ~ABSDisplay() = default;
+    virtual void updateBoard() = 0;
 };
 
 

@@ -18,6 +18,7 @@ public:
     void setNextOb(char val, int start);
     void printNextOb();
     void notify() override;
+    void updateBoard();
     ~TextDisplay();
 };
 

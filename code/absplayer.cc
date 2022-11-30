@@ -19,3 +19,9 @@ void ABSPlayer::detach(ABSDisplay *o) {
     }
 }
 
+void ABSPlayer::notifyBoard() {
+    for (auto it : displays) {
+        it->updateBoard();
+    }
+}
+

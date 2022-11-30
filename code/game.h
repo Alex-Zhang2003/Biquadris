@@ -10,31 +10,26 @@
 
 class Game {
 
-    bool TextOnly;
-    
+    bool readGraphic;
     Player player1;
     Player player2;
     Player* curPlayer;
-    bool p1Dead;
-    bool p2Dead;
     int hiScore;
-    bool gameFinished;
     Command command;
     TextDisplay textDisplay;
     GraphDisplay *graphicDisplay;
-    bool textOnly;
-    
 
 public: 
 
-    Game(bool textOnly, int level, std::string file1, std::string file2, int seed = 1);
+    Game(bool readGraphic, int level, std::string file1, std::string file2, int seed = 1);
     ~Game();
     void init();
-    void restart();
     void switchPlayer();
     void runTurn();
     bool isGameFinished();
     bool playAgain();
+    int getHiScore();
+    void setHiScore(int score);
 
 private:
 

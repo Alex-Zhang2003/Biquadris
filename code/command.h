@@ -31,7 +31,7 @@ public:
     //throws logic error
     void readCommand(bool special = false);
     void runCommand();
-    void switchPlayer();
+    void switchPlayer(Player* player);
 
     std::string getCommand();
     int getMultiplier();

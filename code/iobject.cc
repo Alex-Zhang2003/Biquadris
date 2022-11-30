@@ -8,7 +8,6 @@ bool iObject::insert() {
 
     for (int tmpCol = 0; tmpCol < 4; tmpCol++) {
         if (getBoard()[tmpRow][tmpCol]->isEmpty() == false) {
-            std::cout << "cannot place I at col " << tmpCol << std::endl;
             return false;
         }
     }
@@ -18,7 +17,6 @@ bool iObject::insert() {
         getCells().push_back(getBoard()[tmpRow][tmpCol]);
     }
 
-    std::cout << "placed I" << std::endl;
     return true;
 }
 
@@ -29,11 +27,13 @@ bool iObject::rotate(std::string dirction){
         int axisRow = getCells()[0]->getRow();
 
         for (int i = 1; i <= 3; i++) {
-            if (axisRow < 0 || axisRow >= 18) {
+            if (axisRow - i < 0) {
+                std::cout << "I rotate 0 OOB" << std::endl;
                 return false;
             }
 
-            if (!getBoard()[axisRow + i][axisCol]->isEmpty()) {
+            if (!getBoard()[axisRow - i][axisCol]->isEmpty()) {
+                std::cout << "I rotate 0 not empty" << std::endl;
                 return false;
             }
         }
@@ -47,7 +47,8 @@ bool iObject::rotate(std::string dirction){
             getCells().push_back(getBoard()[axisRow - i][axisCol]);
             getCells().back()->setChar('I');
         }
-
+        
+        std::cout << "I rotated" << std::endl;
         return true;
 
     } else if (rotatePos == 1) {
@@ -56,7 +57,7 @@ bool iObject::rotate(std::string dirction){
         int axisRow = getCells()[0]->getRow();
 
         for (int i = 1; i <= 3; i++) {
-            if (axisCol < 0 || axisCol >= 11) {
+            if (axisCol + i >= 11) {
                 return false;
             }
 
@@ -74,6 +75,7 @@ bool iObject::rotate(std::string dirction){
             getCells().push_back(getBoard()[axisRow][axisCol + i]);
             getCells().back()->setChar('I');
         } 
+        std::cout << "I rotated" << std::endl;
         return true; 
     }
 }

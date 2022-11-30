@@ -15,6 +15,7 @@ class ABSPlayer {
 public:
 
   void notifyDisplay();
+  void notifyBoard();
   void attach(ABSDisplay *o);
   void detach(ABSDisplay *o);
   virtual ~ABSPlayer() = default;
