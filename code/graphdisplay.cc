@@ -127,9 +127,10 @@ void GraphDisplay::notify() {
     }
     printNextOb(player1Next, 10);
     printNextOb(player2Next, 160);
-    theScreen->fillRectangle(50, 310, 200, 10, Xwindow::White);
-    if (turn % 2) theScreen->drawString(50, 310, "It's player2's turn");
-    else theScreen->drawString(50, 310, "It's player1's turn");
+    theScreen->fillRectangle(80, 320, 100, 20, Xwindow::White);
+    if (turn % 2) theScreen->drawString(80, 330, "It's player2's turn");
+    else theScreen->drawString(80, 330, "It's player1's turn");
+    turn++;
 }
 
 
