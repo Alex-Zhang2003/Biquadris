@@ -3,7 +3,7 @@
 #include <string>
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0}{
+    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0}, turn{0} {
     board1 = new char*[18];
     board2 = new char*[18];
     for (int i = 0; i < 18; i++) {
@@ -22,11 +22,11 @@ void GraphDisplay::updateHiScore(int score) {
 
 
 void GraphDisplay::printTitle() {
-    theScreen->fillRectangle(180, 10, 10, 10, Xwindow::White);
-    theScreen->fillRectangle(80, 50, 10, 10, Xwindow::White);
-    theScreen->fillRectangle(230, 50, 10, 10, Xwindow::White);
-    theScreen->fillRectangle(80, 60, 10, 10, Xwindow::White);
-    theScreen->fillRectangle(230, 60, 10, 10, Xwindow::White);
+    theScreen->fillRectangle(180, 10, 80, 10, Xwindow::White);
+    theScreen->fillRectangle(80, 50, 80, 10, Xwindow::White);
+    theScreen->fillRectangle(230, 50, 80, 10, Xwindow::White);
+    theScreen->fillRectangle(80, 60, 80, 10, Xwindow::White);
+    theScreen->fillRectangle(230, 60, 80, 10, Xwindow::White);
     
     theScreen->drawString(80, 10, "Hi Score: ");
     std::string HiScore_String = std::to_string(HiScore);
@@ -127,6 +127,9 @@ void GraphDisplay::notify() {
     }
     printNextOb(player1Next, 10);
     printNextOb(player2Next, 160);
+    theScreen->fillRectangle(50, 310, 200, 10, Xwindow::White);
+    if (turn % 2) theScreen->drawString(50, 310, "It's player2's turn");
+    else theScreen->drawString(50, 310, "It's player1's turn");
 }
 
 

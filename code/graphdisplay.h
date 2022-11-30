@@ -12,6 +12,7 @@ class GraphDisplay : public ABSDisplay {
     int HiScore;
     char** board1;
     char** board2;
+    int turn;
 
 public:
     GraphDisplay(Player* player1, Player* player2);
