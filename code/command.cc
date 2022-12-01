@@ -120,8 +120,9 @@ void Command::readNum(){
     if (*in >> input) {
         if (input > 1) {
             multiplier = input;
+        } else {
+            multiplier = 1;
         }
-        multiplier = input;
     } else {
         in->clear();
     }
