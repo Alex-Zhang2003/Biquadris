@@ -2,7 +2,7 @@
 
 
 Cell::Cell(int row, int col, char c):
-    row{row}, col{col}, val{c}, empty{true} {}
+    col{col}, row{row}, val{c}, empty{true} {}
 
 bool Cell::isEmpty() const {
     return empty;

@@ -10,7 +10,7 @@ class Level {
 public:
 
     Level(int level);
-    ~Level();
+    virtual ~Level();
     // throws invalid arguments ?
     virtual char generate() = 0;
     int getLevel() const;

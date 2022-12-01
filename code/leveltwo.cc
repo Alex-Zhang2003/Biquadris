@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <climits>
 
-LevelTwo::LevelTwo(int level, int seed): Level{level}, seed{seed}, prob{1/7} {
+LevelTwo::LevelTwo(int level, int seed): Level{level}, seed{seed}, prob{1.0/7.0} {
     std::srand(seed);
 }
 

@@ -49,7 +49,7 @@ public:
     void setBlind();
     void setForced(char obj);
     void clear();
-    void update();
+    int update();
     void updateObj();
     bool insert();
     std::string getFile();
@@ -70,6 +70,7 @@ private:
     void fall();
     bool rowEmpty(int row);
     Object* createNewObj(char obj);
+    void spawnSingleObj();
 };
 
 

@@ -16,11 +16,11 @@ class Object {
 public:
 
     Object(std::vector<std::vector<Cell*>>& board, int level);
+    virtual ~Object();
     bool left();
     bool right();
     bool down();
-    bool drop();
-    bool placed();
+    void drop();
     virtual bool insert() = 0;
     virtual bool rotate(std::string dirction) = 0;
     bool isDropped() const;

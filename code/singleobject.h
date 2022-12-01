@@ -10,6 +10,7 @@ public:
 
     
     SingleObject(std::vector<std::vector<Cell*>>& board, int level);
+    ~SingleObject();
     bool insert();
     bool rotate(std::string dirction);
 

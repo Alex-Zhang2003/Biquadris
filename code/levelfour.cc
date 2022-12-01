@@ -3,7 +3,7 @@
 #include <fstream>
 #include <climits>
 
-LevelFour::LevelFour(int level, int seed, bool random, std::string file): Level{level}, seed{seed}, random{random}, file{file}, prob{1/9} {
+LevelFour::LevelFour(int level, int seed, bool random, std::string file): Level{level}, seed{seed}, prob{1.0/9.0}, random{random}, file{file} {
     word = 0;
     std::srand(seed);
 }

@@ -32,9 +32,12 @@ public:
     void readCommand(bool special = false);
     void runCommand();
     void switchPlayer(Player* player);
-
+    void specialAction();
     std::string getCommand();
     int getMultiplier();
+
+private:
+    void runSpecial();
 };
 
 

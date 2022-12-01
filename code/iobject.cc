@@ -22,18 +22,15 @@ bool iObject::insert() {
 
 bool iObject::rotate(std::string dirction){
     if (rotatePos == 0){
-        rotatePos = 1;
         int axisCol = getCells()[0]->getCol();
         int axisRow = getCells()[0]->getRow();
 
         for (int i = 1; i <= 3; i++) {
             if (axisRow - i < 0) {
-                std::cout << "I rotate 0 OOB" << std::endl;
                 return false;
             }
 
             if (!getBoard()[axisRow - i][axisCol]->isEmpty()) {
-                std::cout << "I rotate 0 not empty" << std::endl;
                 return false;
             }
         }
@@ -47,12 +44,10 @@ bool iObject::rotate(std::string dirction){
             getCells().push_back(getBoard()[axisRow - i][axisCol]);
             getCells().back()->setChar('I');
         }
-        
-        std::cout << "I rotated" << std::endl;
+        rotatePos = 1;
         return true;
 
     } else if (rotatePos == 1) {
-        rotatePos = 0;
         int axisCol = getCells()[0]->getCol();
         int axisRow = getCells()[0]->getRow();
 
@@ -74,9 +69,11 @@ bool iObject::rotate(std::string dirction){
         for (int i = 0; i <= 3; i++) {
             getCells().push_back(getBoard()[axisRow][axisCol + i]);
             getCells().back()->setChar('I');
-        } 
-        std::cout << "I rotated" << std::endl;
+        }
+        rotatePos = 0;
         return true; 
     }
+
+    return false;
 }
 

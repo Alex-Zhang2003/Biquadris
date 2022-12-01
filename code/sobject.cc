@@ -26,7 +26,6 @@ bool sObject::insert() {
 
 bool sObject::rotate(std::string direction) {
     if (rotatePos == 0) {
-        rotatePos = 1;
 
         int axisRow = getCells()[0]->getRow();
         int axisCol = getCells()[0]->getCol();
@@ -52,11 +51,10 @@ bool sObject::rotate(std::string direction) {
             getCells().push_back(getBoard()[axisRow - i][axisCol + 1]);
             getCells().back()->setChar('S');
         }
-
+        rotatePos = 1;
         return true;   
 
     } else if (rotatePos == 1){
-        rotatePos = 0;
 
         int axisRow = getCells()[1]->getRow() + 1;
         int axisCol = getCells()[1]->getCol();
@@ -82,10 +80,11 @@ bool sObject::rotate(std::string direction) {
             getCells().push_back(getBoard()[axisRow - 1][axisCol + i]);
             getCells().back()->setChar('S');
         }
-
+        rotatePos = 0;
         return true;
 
     }
+    return false;
 }
 
 

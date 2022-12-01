@@ -26,7 +26,6 @@ bool zObject::insert() {
 
 bool zObject::rotate(std::string direction) {
     if (rotatePos == 0) {
-        rotatePos = 1;
 
         int axisRow = getCells()[0]->getRow() + 1;
         int axisCol = getCells()[0]->getCol();
@@ -54,11 +53,10 @@ bool zObject::rotate(std::string direction) {
 
         getCells().push_back(getBoard()[axisRow - 2][axisCol + 1]);
         getCells().back()->setChar('Z');
-
+        rotatePos = 1;
         return true;   
 
     } else if (rotatePos == 1){
-        rotatePos = 0;
 
         int axisRow = getCells()[0]->getRow();
         int axisCol = getCells()[0]->getCol();
@@ -84,10 +82,11 @@ bool zObject::rotate(std::string direction) {
             getCells().push_back(getBoard()[axisRow][axisCol + i + 1]);
             getCells().back()->setChar('Z');
         }
-
+        rotatePos = 0;
         return true;
 
     }
+    return false;
 }
 
 

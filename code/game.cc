@@ -3,7 +3,7 @@
 #include <exception>
 
 Game::Game(bool readGraphic, int level, std::string file1, std::string file2, int seed):
-    readGraphic{readGraphic}, player1{level, false, file1, seed}, player2{level, false, file2, seed}, command{&player1, &player2, this}, textDisplay{&player1, &player2} {
+    readGraphic{readGraphic}, player1{level, true, file1, seed}, player2{level, true, file2, seed}, command{&player1, &player2, this}, textDisplay{&player1, &player2} {
     
     hiScore = 0;
 
@@ -30,7 +30,6 @@ void Game::init() {
     std::cout<< "init game" << std::endl;
     curPlayer->notifyDisplay();
     while(true) {
-        // use try catch statement to restart the game
         runTurn();
         if (player1.isDead() && player2.isDead()) {
             break;
@@ -60,7 +59,7 @@ bool Game::playAgain() {
 
     std::string input = "";
 
-    while (input != "y" || input != "n") {
+    while (input != "y" && input != "n") {
         std::cin >> input;
     }
 
@@ -92,8 +91,11 @@ void Game::runTurn() {
         command.readCommand();
         command.runCommand();
     }
-
-    curPlayer->update();
+    
+    int rowsCleared = curPlayer->update();
+    if (rowsCleared >= 2) {
+        command.specialAction();
+    }
     curPlayer->notifyDisplay();
 }
 

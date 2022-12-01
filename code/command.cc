@@ -20,20 +20,22 @@ Command::~Command(){}
 
 void Command::readCommand(bool sp){
 
-    readNum();
+    std::vector<std::string>*c;
+    if (sp == false) {
+        c = &commands;
+        readNum();
+    } else {
+        c = &special;
+        multiplier = 1;
+    }
+
     *in >> curCommand;
 
     int len = curCommand.length();
 
-    std::vector<std::string>& c = special;
-
-    if (sp == false) {
-        c = commands;
-    } 
-
     std::string aCommand = "";
 
-    for (std::string &it : c) {
+    for (std::string &it : *c) {
 
         std::string tmp = it.substr(0, len);
 
@@ -125,7 +127,38 @@ void Command::readNum(){
     }
 }
 
+void Command::specialAction() {
+    std::cout << "Congratulations, you have triggered a SPECIAL MOVE!" << std::endl;
+    std::cout << "enter one of the following commands: " << std::endl;
+    std::cout << "blind: color out the other player's board for one turn" << std::endl;
+    std::cout << "L,J,I,...: replace the other player's next object with a block of your choice" << std::endl;
+    std::cout << "heavy: make the other player's blocks heavier" << std::endl;
+    runSpecial();
+}
 
+void Command::runSpecial() {
+    readCommand(true);
+
+    if (curCommand == "I" || curCommand == "J" || curCommand == "L" || curCommand == "S" ||  curCommand =="Z" ||  curCommand == "O" || curCommand == "T") {
+        if (curPlayer == player1) {
+            player2->setForced(curCommand.at(0));
+        } else {
+            player1->setForced(curCommand.at(0));
+        }
+    } else if (curCommand == "heavy") {
+        if (curPlayer == player1) {
+            player2->setHeavy(2);
+        } else {
+            player1->setHeavy(2);
+        }
+    } else if (curCommand == "blind") {
+        if (curPlayer == player1) {
+            player2->setBlind();
+        } else {
+            player1->setBlind();
+        }
+    }
+}
 
 
 

@@ -6,6 +6,8 @@ Object::Object(std::vector<std::vector<Cell*>>& board, int level): board{board},
     dropped = false;
 }
 
+Object::~Object(){}
+
 bool Object::contain(Cell* cell){
     bool isOwn = false;
     for (auto it : cells) {
@@ -60,13 +62,11 @@ bool Object::right(){
         int row = it->getRow();
 
         if (col >= 11) {
-            std::cout << "right out of bounds" << std::endl;
             return false;
         }
 
         if (board[row][col]->isEmpty() == false) {
             if (!contain(board[row][col])) {
-                std::cout << row << "   " << col << "not empty, right failed" << std::endl;
                 return false;
             }
         }
@@ -129,17 +129,11 @@ bool Object::down(){
 
 }
 
-bool Object::drop(){
+void Object::drop(){
 
-    while (dropped == true) {
+    while (dropped == false) {
         dropped = !down();
     }
-
-}
-
-bool Object::placed(){
-
-    return dropped;
 
 }
 
@@ -157,7 +151,8 @@ bool Object::isDropped() const{
 
 bool Object::isGone() {
     for (auto it : cells) {
-        if (it->isEmpty() == false) {
+        if (!it->isEmpty()) {
+            std::cout << "row " << it->getRow() << ", col " << it->getCol() << std::endl;
             return false;
         }
     }
