@@ -3,7 +3,8 @@
 #include <string>
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0}, turn{0} {
+    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0},
+    scoreUpdated{true}, turn{0}, score1{-1}, score2{-1}, level1{-1}, level2{-1} {
     board1 = new char*[18];
     board2 = new char*[18];
     for (int i = 0; i < 18; i++) {
@@ -18,35 +19,52 @@ GraphDisplay::GraphDisplay(Player *player1, Player *player2):
 
 void GraphDisplay::updateHiScore(int score) {
     HiScore = score;
+    scoreUpdated = true;
 }
 
 
 void GraphDisplay::printTitle() {
-    theScreen->fillRectangle(180, 10, 80, 10, Xwindow::White);
-    theScreen->fillRectangle(80, 50, 80, 10, Xwindow::White);
-    theScreen->fillRectangle(230, 50, 80, 10, Xwindow::White);
-    theScreen->fillRectangle(80, 60, 80, 10, Xwindow::White);
-    theScreen->fillRectangle(230, 60, 80, 10, Xwindow::White);
-    
     theScreen->drawString(80, 10, "Hi Score: ");
     std::string HiScore_String = std::to_string(HiScore);
-    theScreen->drawString(180, 10, HiScore_String);
+    if (scoreUpdated) {
+        theScreen->fillRectangle(180, 10, 80, 10, Xwindow::White);
+        theScreen->drawString(180, 10, HiScore_String);
+        scoreUpdated = false;
+    }
     theScreen->drawString(10, 40, "Player 1:");
     theScreen->drawString(160, 40, "Player 2:");
 
     theScreen->drawString(10, 50, "Level: ");
-    std::string level = std::to_string(player1->getLevel());
-    theScreen->drawString(80, 50, level);
+    std::string level;
+    if (level1 != player1->getLevel()) {
+        theScreen->fillRectangle(80, 50, 80, 10, Xwindow::White);
+        level = std::to_string(player1->getLevel());
+        theScreen->drawString(80, 50, level);
+        level1 = player1->getLevel();
+    }
     theScreen->drawString(160, 50, "Level: ");
-    level = std::to_string(player2->getLevel());
-    theScreen->drawString(230, 50, level);
+    if (level2 != player2->getLevel()) {
+        theScreen->fillRectangle(230, 50, 80, 10, Xwindow::White);
+        level = std::to_string(player2->getLevel());
+        theScreen->drawString(230, 50, level);
+        level2 = player2->getLevel();
+    }
 
     theScreen->drawString(10, 60, "Score: ");
-    std::string score = std::to_string(player1->getScore());
-    theScreen->drawString(80, 60, score);
+    std::string score;
+    if (score1 != player1->getScore()) {
+        theScreen->fillRectangle(80, 60, 80, 10, Xwindow::White);
+        score = std::to_string(player1->getScore());
+        theScreen->drawString(80, 60, score);
+        score1 = player1->getScore();
+    }
     theScreen->drawString(160, 60, "Score: ");
-    score = std::to_string(player2->getScore());
-    theScreen->drawString(230, 60, score);
+    if (score2 != player2->getScore()) {
+        theScreen->fillRectangle(230, 60, 80, 10, Xwindow::White);
+        score = std::to_string(player2->getScore());
+        theScreen->drawString(230, 60, score);
+        score2 = player2->getScore();
+    }
 }
 
 
@@ -119,14 +137,17 @@ void GraphDisplay::notify() {
     theScreen->drawString(160, 280, "Next:");
     char player1Next = player1->getNext();
     char player2Next = player2->getNext();
-    for (int i = 0; i < 4; i++) {
-        theScreen->fillRectangle(10 + i * 10, 290, 10, 10, Xwindow::White);
-        theScreen->fillRectangle(160 + i * 10, 290, 10, 10, Xwindow::White);
-        theScreen->fillRectangle(10 + i * 10, 300, 10, 10, Xwindow::White);
-        theScreen->fillRectangle(160 + i * 10, 300, 10, 10, Xwindow::White);
+    if (!(turn % 2)) {
+        for (int i = 0; i < 4; i++) {
+            theScreen->fillRectangle(10 + i * 10, 290, 10, 10, Xwindow::White);
+            theScreen->fillRectangle(160 + i * 10, 290, 10, 10, Xwindow::White);
+            theScreen->fillRectangle(10 + i * 10, 300, 10, 10, Xwindow::White);
+            theScreen->fillRectangle(160 + i * 10, 300, 10, 10, Xwindow::White);
+        }
+        std::cout << "Line 153" << std::endl;
+        printNextOb(player1Next, 10);
+        printNextOb(player2Next, 160);
     }
-    printNextOb(player1Next, 10);
-    printNextOb(player2Next, 160);
     theScreen->fillRectangle(80, 320, 100, 20, Xwindow::White);
     if (turn % 2) theScreen->drawString(80, 330, "It's player2's turn");
     else theScreen->drawString(80, 330, "It's player1's turn");

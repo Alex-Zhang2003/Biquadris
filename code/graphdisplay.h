@@ -10,9 +10,14 @@ class GraphDisplay : public ABSDisplay {
     Player* player2;
     Xwindow* theScreen;
     int HiScore;
+    bool scoreUpdated;
     char** board1;
     char** board2;
     int turn;
+    int score1;
+    int score2;
+    int level1;
+    int level2;
 
 public:
     GraphDisplay(Player* player1, Player* player2);
