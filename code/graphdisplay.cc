@@ -27,7 +27,7 @@ void GraphDisplay::printTitle() {
     theScreen->drawString(80, 10, "Hi Score: ");
     std::string HiScore_String = std::to_string(HiScore);
     if (scoreUpdated) {
-        theScreen->fillRectangle(180, 10, 80, 10, Xwindow::White);
+        theScreen->fillRectangle(180, 0, 80, 10, Xwindow::White);
         theScreen->drawString(180, 10, HiScore_String);
         scoreUpdated = false;
     }
@@ -37,14 +37,14 @@ void GraphDisplay::printTitle() {
     theScreen->drawString(10, 50, "Level: ");
     std::string level;
     if (level1 != player1->getLevel()) {
-        theScreen->fillRectangle(80, 50, 80, 10, Xwindow::White);
+        theScreen->fillRectangle(80, 40, 80, 10, Xwindow::White);
         level = std::to_string(player1->getLevel());
         theScreen->drawString(80, 50, level);
         level1 = player1->getLevel();
     }
     theScreen->drawString(160, 50, "Level: ");
     if (level2 != player2->getLevel()) {
-        theScreen->fillRectangle(230, 50, 80, 10, Xwindow::White);
+        theScreen->fillRectangle(230, 40, 80, 10, Xwindow::White);
         level = std::to_string(player2->getLevel());
         theScreen->drawString(230, 50, level);
         level2 = player2->getLevel();
@@ -53,14 +53,15 @@ void GraphDisplay::printTitle() {
     theScreen->drawString(10, 60, "Score: ");
     std::string score;
     if (score1 != player1->getScore()) {
-        theScreen->fillRectangle(80, 60, 80, 10, Xwindow::White);
+        theScreen->fillRectangle(80, 50, 80, 10, Xwindow::White);
+
         score = std::to_string(player1->getScore());
         theScreen->drawString(80, 60, score);
         score1 = player1->getScore();
     }
     theScreen->drawString(160, 60, "Score: ");
     if (score2 != player2->getScore()) {
-        theScreen->fillRectangle(230, 60, 80, 10, Xwindow::White);
+        theScreen->fillRectangle(230, 50, 80, 10, Xwindow::White);
         score = std::to_string(player2->getScore());
         theScreen->drawString(230, 60, score);
         score2 = player2->getScore();
@@ -144,7 +145,6 @@ void GraphDisplay::notify() {
             theScreen->fillRectangle(10 + i * 10, 300, 10, 10, Xwindow::White);
             theScreen->fillRectangle(160 + i * 10, 300, 10, 10, Xwindow::White);
         }
-        std::cout << "Line 153" << std::endl;
         printNextOb(player1Next, 10);
         printNextOb(player2Next, 160);
     }
