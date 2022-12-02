@@ -112,7 +112,7 @@ void Command::runCommand(){
         curPlayer->replaceCur(tmp);
         
     } else if (curCommand == "restart") {
-        throw (std::string {"Restart Game"});
+        throw (std::string {"Game Restarted"});
     }
 
 }

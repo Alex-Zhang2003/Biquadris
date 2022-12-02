@@ -23,7 +23,7 @@ public:
 
     Game(bool readGraphic, int level, std::string file1, std::string file2, int seed = 1);
     ~Game();
-    void init();
+    std::string init();
     void switchPlayer();
     void runTurn();
     bool isGameFinished();

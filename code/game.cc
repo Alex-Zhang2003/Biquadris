@@ -26,11 +26,15 @@ Game::~Game() {
     delete graphicDisplay;
 }
 
-void Game::init() {
+std::string Game::init() {
     std::cout<< "init game" << std::endl;
     curPlayer->notifyDisplay();
     while(true) {
-        runTurn();
+        try {
+            runTurn();
+        } catch (std::string exp) {
+            return exp;
+        } 
         if (player1.isDead() && player2.isDead()) {
             break;
         }
@@ -38,8 +42,9 @@ void Game::init() {
         std::cout << "switch turn" << std::endl;
     }
     if (playAgain()) {
-        throw (std::string {"Game Restarted"});
+        return "Game Restarted";
     }
+    return "";
 }
 
 bool Game::playAgain() {

@@ -35,21 +35,17 @@ void CMDL::startGame(){
     }
 
     Game* play = new Game(readGraphic, level, file1, file2, seed);
-    try {
-        play->init();
-    } catch (std::string exp) {
-        if (exp == "EOF") {
-            return;
-        } else {
-            std::cout << exp << std::endl;
-            int hiScore = play->getHiScore();
-            delete play;
-            play = new Game(readGraphic, level, file1, file2, seed);
-            play->setHiScore(hiScore);
-            play->init();
-        }
-    }
-    
+    std::string result = play->init();
+    std::cout << "RESULT: " + result << std::endl;
+    while (result == "Game Restarted"){
+        int hiScore = play->getHiScore();
+        delete play;
+        play = new Game(readGraphic, level, file1, file2, seed);
+        play->setHiScore(hiScore);
+        result = play->init();
+    }   
+    delete play;
 }
+
 
 

@@ -154,6 +154,12 @@ void GraphDisplay::notify() {
 
 GraphDisplay::~GraphDisplay() {
     delete theScreen;
+    for (int i = 0; i < 18; i++) {
+        delete [] board1[i];
+        delete [] board2[i];
+    }
+    delete [] board1;
+    delete [] board2;
 }
 
 void GraphDisplay::updateBoard() {
