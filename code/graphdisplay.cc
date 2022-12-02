@@ -148,7 +148,6 @@ void GraphDisplay::notify() {
         printNextOb(player1Next, 10);
         printNextOb(player2Next, 160);
     }
-    theScreen->fillRectangle(80, 320, 100, 20, Xwindow::White);
 }
 
 
