@@ -13,7 +13,6 @@ class GraphDisplay : public ABSDisplay {
     bool scoreUpdated;
     char** board1;
     char** board2;
-    int turn;
     int score1;
     int score2;
     int level1;
