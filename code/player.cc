@@ -150,54 +150,45 @@ char Player::getState(int row, int col) {
 }
 
 void Player::levelup(int num) {
-    for (int i = 0; i < num; i++) {
-        if (num <= 4) {
-            int next = levelNum + 1;
-            levelNum++;
-            delete level;
-            
-            switch (next) {
-                case 1:
-                    level = new LevelOne(levelNum, seed);
-                    break;
-                case 2:
-                    level = new LevelTwo(levelNum, seed);
-                    break;
-                case 3:
-                    level = new LevelThree(levelNum, seed, random, fileName);
-                    if (heavy != 3 && heavy != 1) {
-                        heavy++;
-                    }
-                    break;
-                case 4:
-                    level = new LevelFour(levelNum, seed, random, fileName);
-                    break;
-            }
-        }
+    levelNum += num;
+    if (levelNum > 4) {
+        levelNum = 4;
+    }
+    delete level;    
+    switch (levelNum) {
+        case 1:
+            level = new LevelOne(levelNum, seed);
+            break;
+        case 2:
+            level = new LevelTwo(levelNum, seed);
+            break;
+        case 3:
+            level = new LevelThree(levelNum, seed, random, fileName);
+            break;
+        case 4:
+            level = new LevelFour(levelNum, seed, random, fileName);
+            break;
     }
 }
 void Player::leveldown(int num){
-    for (int i = 0; i < num; i++) {
-        if (num <= 4) {
-            int next = levelNum - 1;
-            levelNum--;
-            delete level;
-            
-            switch (next) {
-                case 0:
-                    level = new LevelZero(levelNum, fileName);
-                    break;
-                case 1:
-                    level = new LevelOne(levelNum, seed);
-                    break;
-                case 2:
-                    level = new LevelTwo(levelNum, seed);
-                    break;
-                case 3:
-                    level = new LevelThree(levelNum, seed, random, fileName);
-                    break;
-            }
-        }
+    levelNum -= num;
+    if (levelNum < 0) {
+        levelNum = 0;
+    }
+    delete level;    
+    switch (levelNum) {
+        case 0:
+            level = new LevelZero(levelNum, fileName);
+            break;
+        case 1:
+            level = new LevelOne(levelNum, seed);
+            break;
+        case 2:
+            level = new LevelTwo(levelNum, seed);
+            break;
+        case 3:
+            level = new LevelThree(levelNum, seed, random, fileName);
+            break;
     }
 }
 
