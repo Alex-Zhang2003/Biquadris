@@ -4,7 +4,7 @@
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2):
     player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0},
-    scoreUpdated{true}, score1{-1}, score2{-1}, level1{-1}, level2{-1} {
+    scoreUpdated{true}, score1{-1}, score2{-1}, level1{-1}, level2{-1}, round{0} {
     board1 = new char*[18];
     board2 = new char*[18];
     for (int i = 0; i < 18; i++) {
@@ -138,7 +138,7 @@ void GraphDisplay::notify() {
     theScreen->drawString(160, 280, "Next:");
     char player1Next = player1->getNext();
     char player2Next = player2->getNext();
-    if (!(turn % 2)) {
+    if (!(round % 2)) {
         for (int i = 0; i < 4; i++) {
             theScreen->fillRectangle(10 + i * 10, 290, 10, 10, Xwindow::White);
             theScreen->fillRectangle(160 + i * 10, 290, 10, 10, Xwindow::White);
@@ -148,6 +148,7 @@ void GraphDisplay::notify() {
         printNextOb(player1Next, 10);
         printNextOb(player2Next, 160);
     }
+    round++;
 }
 
 

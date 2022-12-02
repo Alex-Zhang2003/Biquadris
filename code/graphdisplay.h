@@ -17,6 +17,7 @@ class GraphDisplay : public ABSDisplay {
     int score2;
     int level1;
     int level2;
+    int round;
 
 public:
     GraphDisplay(Player* player1, Player* player2);
