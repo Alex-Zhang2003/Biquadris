@@ -15,6 +15,8 @@ public:
     virtual char generate() = 0;
     int getLevel() const;
     virtual void changeFile(std::string newFile);
+    virtual void setRandom();
+    virtual void noRandom();
 
 };
 

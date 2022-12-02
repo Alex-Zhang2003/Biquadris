@@ -151,7 +151,7 @@ char Player::getState(int row, int col) {
 
 void Player::levelup(int num) {
     for (int i = 0; i < num; i++) {
-        if (num < 4) {
+        if (num <= 4) {
             int next = levelNum + 1;
             levelNum++;
             delete level;
@@ -178,7 +178,7 @@ void Player::levelup(int num) {
 }
 void Player::leveldown(int num){
     for (int i = 0; i < num; i++) {
-        if (num < 4) {
+        if (num <= 4) {
             int next = levelNum - 1;
             levelNum--;
             delete level;
@@ -355,11 +355,17 @@ int Player::getSeed() {
 }
 
 void Player::setRandom() {
-    random = true;
+    if (levelNum >= 3) {
+        random = true;
+        level->setRandom();
+    }
 }
 
 void Player::unsetRandom(){
-    random = false;
+    if (levelNum >= 3) {
+        random = false;
+        level->noRandom();
+    }
 }
 
 bool Player::isRandom() {

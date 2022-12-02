@@ -29,7 +29,18 @@ void Command::readCommand(bool sp){
         multiplier = 1;
     }
 
-    *in >> curCommand;
+    if (!(*in >> curCommand)) {
+        if (in != &std::cin) {
+            delete in;
+            in = &std::cin;
+            if (*in >> curCommand) {
+                throw std::string {"EOF"}; 
+            }
+        } else {
+            throw std::string {"EOF"};
+        }
+    }
+    
 
     int len = curCommand.length();
 
@@ -84,22 +95,17 @@ void Command::runCommand(){
         std::string file;
         *in >> file;
         curPlayer->changeLevelFile(file);
-        curPlayer->setRandom();
+        curPlayer->unsetRandom();
         
     } else if (curCommand == "random") {
-        curPlayer->unsetRandom();
+        curPlayer->setRandom();
         
     } else if (curCommand == "sequence") {
         
         std::string file;
         *in >> file;
-        std::ifstream input {file};
-        std::string cmd;
-
-        while (input >> cmd) {
-            curCommand = cmd;
-            runCommand();
-        }
+        std::ifstream* input = new std::ifstream (file);
+        in = input;
         
     } else if (curCommand == "I" || curCommand == "J" || curCommand == "L" || curCommand == "S" ||  curCommand =="Z" ||  curCommand == "O" || curCommand == "T") {
         char tmp = curCommand.at(0);

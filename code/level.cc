@@ -10,4 +10,8 @@ int Level::getLevel() const {
 
 void Level::changeFile(std::string newFile) {}
 
+void Level::noRandom(){}
+
+void Level::setRandom(){}
+
 
