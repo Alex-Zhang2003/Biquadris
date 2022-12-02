@@ -12,7 +12,7 @@ Command::Command(Player* player1, Player* player2, Game* game, std::istream *in)
     commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", 
                                         "I", "J", "L", "T", "S", "O", "Z", "restart"};
 
-    special = {"blind", "heavy", "force"};
+    special = {"blind", "heavy", "force", "I", "J", "L", "T", "S", "O", "Z"};
 
 }
 
@@ -42,6 +42,7 @@ void Command::readCommand(bool sp){
         if (tmp == curCommand) {
             if (aCommand == "") {
                 aCommand = it;
+                std::cout << "the command read was : " << it << std::endl;
             } else {
                 throw std::logic_error{"There are multiple matching commands for your input, please try again."};
                 return;
@@ -142,8 +143,10 @@ void Command::runSpecial() {
 
     if (curCommand == "I" || curCommand == "J" || curCommand == "L" || curCommand == "S" ||  curCommand =="Z" ||  curCommand == "O" || curCommand == "T") {
         if (curPlayer == player1) {
+            std::cout << "set next for player2" << std::endl;
             player2->setForced(curCommand.at(0));
         } else {
+            std::cout << "set next for player1" << std::endl;
             player1->setForced(curCommand.at(0));
         }
     } else if (curCommand == "heavy") {

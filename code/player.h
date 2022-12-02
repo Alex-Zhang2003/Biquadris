@@ -18,7 +18,6 @@ class Player : public ABSPlayer{
     int stepCount;
     int heavy;
     bool blind;
-    char forced;
     Object* curObj;
     char nextObj;
     bool dropped;

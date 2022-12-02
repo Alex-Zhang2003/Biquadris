@@ -1,3 +1,4 @@
+
 #include "cell.h"
 
 
@@ -13,8 +14,12 @@ char Cell::getChar() const {
 }
 
 void Cell::setChar(char val) {
+    if (val == '\0') {
+        empty = true;
+    } else {
+        empty = false;
+    }
     this->val = val;
-    empty = false;
 }
 
 int Cell::getRow() const {

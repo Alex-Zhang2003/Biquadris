@@ -17,7 +17,7 @@
 #include <iostream>
 
 Player::Player(int levelNum, bool random, std::string fileName, int seed): 
-    levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, forced{'\0'}, curObj{nullptr}, dropped{false}, seed{seed}, fileName{fileName}, random{random}, curObjType{'\0'}, dead{false} {
+    levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, curObj{nullptr}, dropped{false}, seed{seed}, fileName{fileName}, random{random}, curObjType{'\0'}, dead{false} {
  
     switch (levelNum) {
         case 0:
@@ -142,7 +142,7 @@ int Player::getScore() {
 }
 
 char Player::getState(int row, int col) {
-    if (blind && row >= 3 && row <= 12 && col >= 3 && col <= 9) {
+    if (blind && row >= 2 && row < 12 && col >= 2 && col < 9) {
         return '?';
     } else {
         return board[row][col]->getChar();
@@ -210,7 +210,7 @@ void Player::setBlind() {
     blind = true;
 }
 void Player::setForced(char obj){
-    forced = obj;
+    nextObj = obj;
 }
 
 void Player::clear(){
@@ -239,7 +239,7 @@ int Player::update(){
 
 std::vector<int> Player::removeRows(){
     std::vector<int> rows;
-    for (int i = 3; i < 18; i++) {
+    for (int i = 17; i >= 3; i--) {
         if (rowEmpty(i)) {
             rows.push_back(i);
             for (int j = 0; j < 11; j++) {
@@ -295,32 +295,27 @@ void Player::updateScore(std::vector<int> rows){
 
 Object* Player::createNewObj(char obj) {
     Object* tmp = nullptr;
+
     if (obj == 'I') {
         tmp = new iObject(board, levelNum);
-    } else if (nextObj == 'J') {
+    } else if (obj == 'J') {
         tmp = new jObject(board, levelNum);
-    } else if (nextObj == 'L') {
+    } else if (obj == 'L') {
         tmp = new lObject(board, levelNum);
-    } else if (nextObj == 'T') {
+    } else if (obj == 'T') {
         tmp = new tObject(board, levelNum);
-    } else if (nextObj == 'S') {
+    } else if (obj == 'S') {
         tmp = new sObject(board, levelNum);
-    } else if (nextObj == 'Z') {
+    } else if (obj == 'Z') {
         tmp = new zObject(board, levelNum);
-    } else if (nextObj == 'O') {
+    } else if (obj == 'O') {
         tmp = new oObject(board, levelNum);
     }
-
     return tmp;
 }
 
 void Player::updateObj() {
     stepCount++;
-    if (forced != '\0') {
-        nextObj = forced;
-        forced = '\0';
-    }
-
     curObj = createNewObj(nextObj);
     curObjType = nextObj;
     objects.push_back(curObj);
@@ -376,12 +371,15 @@ void Player::changeLevelFile(std::string newFile) {
 }
 
 void Player::replaceCur(char obj) {
-    curObj->clear();
-    delete curObj;
-
+    if (curObj != nullptr) {
+        curObj->clear();
+        objects.pop_back();
+        delete curObj;
+    }
+    std::cout << obj << std::endl;
     curObj = createNewObj(obj);
+    objects.push_back(curObj);
     curObjType = obj;
-    
     insert();
 }
 
