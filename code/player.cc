@@ -229,8 +229,11 @@ void Player::clear(){
 
 int Player::update(){
     std::vector<int> rows = removeRows();
+    std::cout << " remove DONE" << std::endl;
     updateScore(rows);
+    std::cout << "update DONE" << std::endl;
     dropRows(rows);
+    std::cout << "drop DONE" << std::endl;
     if (blind) {
         blind = false;
     }
@@ -264,8 +267,8 @@ bool Player::rowEmpty(int row){
 
 void Player::dropRows(std::vector<int> rows) {
     int len = rows.size();
-    for (int i = 0; i < len; i++) {
-        for (int j = rows.back(); j >= 3; j--) {
+    for (int i = len - 1; i >= 0; i--) {
+        for (int j = rows[i]; j >= 3; j--) {
             for (int k = 0; k < 11; k++) {
                 if (board[j - 1][k]->isEmpty()) {
                     board[j][k]->setEmpty();
@@ -274,21 +277,16 @@ void Player::dropRows(std::vector<int> rows) {
                 }
             }
         }
-        rows.pop_back();
     }
 }
 
 void Player::updateScore(std::vector<int> rows){
     if (rows.size() > 0) {
         score += (rows.size() + levelNum) * (rows.size() + levelNum);
-        int idx = 0;
         for (auto it : objects) {
             if (it->isGone()) {
                 score += it->getScore();
-                objects.erase(objects.begin() + idx);
-                delete it;
             }
-            idx++;
         }
     }
 }
@@ -318,7 +316,7 @@ void Player::updateObj() {
     stepCount++;
     curObj = createNewObj(nextObj);
     curObjType = nextObj;
-    objects.push_back(curObj);
+    // objects.push_back(curObj);
      
     nextObj = level->generate();
     dropped = false;
@@ -342,6 +340,8 @@ void Player::spawnSingleObj() {
 bool Player::insert() {
     if (!curObj->insert()) {
         dead = true;
+    } else {
+        objects.push_back(curObj);
     }
     return !dead;
 }
@@ -382,9 +382,7 @@ void Player::replaceCur(char obj) {
         objects.pop_back();
         delete curObj;
     }
-    std::cout << obj << std::endl;
     curObj = createNewObj(obj);
-    objects.push_back(curObj);
     curObjType = obj;
     insert();
 }
