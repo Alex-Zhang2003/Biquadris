@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Object::Object(std::vector<std::vector<Cell*>>& board, int level): board{board}, score{(level + 1) * (level + 1)}{
+Object::Object(std::vector<std::vector<Cell*>>& board, int level): board{board}, score{(level + 1) * (level + 1)}, gone{false}{
     dropped = false;
 }
 
@@ -152,7 +152,7 @@ bool Object::isDropped() const{
 bool Object::isGone() {
     for (auto it : cells) {
         if (!it->isEmpty()) {
-            std::cout << "row " << it->getRow() << ", col " << it->getCol() << std::endl;
+            // std::cout << "row " << it->getRow() << ", col " << it->getCol() << std::endl;
             return false;
         }
     }
@@ -160,7 +160,13 @@ bool Object::isGone() {
 }
 
 int Object::getScore() {
-    return score;
+    if (!gone) {
+        gone = true;
+        return score;
+    } else {
+        return 0;
+    }
+    
 }
 
 void Object::clear() {

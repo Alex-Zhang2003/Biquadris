@@ -12,6 +12,7 @@ class Object {
     std::vector<Cell*> cells;
     bool dropped;
     int score;
+    bool gone;
     
 public:
 
