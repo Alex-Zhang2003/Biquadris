@@ -1,0 +1,34 @@
+dr
+ri dr
+4ri dr
+2ri dr
+L 10 ri dr
+dr
+
+dr
+8ri dr
+4 ri dr
+dr
+O 8 ri dr
+5ri dr
+dr
+9 ri dr
+4ri dr
+6ri dr
+J 2cl 10ri dr
+3 ri dr
+
+S 6ri dr
+3ri dr
+dr
+4ri dr
+Z 3ri dr
+dr
+L dr
+dr
+O 5ri dr
+10ri dr
+O 10ri dr
+dr
+
+
