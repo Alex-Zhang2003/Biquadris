@@ -33,6 +33,7 @@ public:
     jObject(std::vector<std::vector<Cell*>>& board, int level);
     bool insert();
     bool rotate(std::string direction);
+    char getObjType();
 
 
 };

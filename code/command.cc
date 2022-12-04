@@ -12,7 +12,7 @@ Command::Command(Player* player1, Player* player2, Game* game, std::istream *in)
     commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", 
                                         "I", "J", "L", "T", "S", "O", "Z", "restart"};
 
-    special = {"blind", "heavy", "force", "I", "J", "L", "T", "S", "O", "Z"};
+    special = {"blind", "heavy", "force", "I", "J", "L", "T", "S", "O", "Z", "double", "noscore"};
 
 }
 
@@ -29,39 +29,45 @@ void Command::readCommand(bool sp){
         multiplier = 1;
     }
 
-    if (!(*in >> curCommand)) {
-        if (in != &std::cin) {
-            delete in;
-            in = &std::cin;
-            if (*in >> curCommand) {
-                throw std::string {"EOF"}; 
+    while (true) {
+
+        if (!(*in >> curCommand)) {
+            if (in != &std::cin) {
+                delete in;
+                in = &std::cin;
+                if (*in >> curCommand) {
+                    throw std::string {"EOF"}; 
+                }
+            } else {
+                throw std::string {"EOF"};
             }
-        } else {
-            throw std::string {"EOF"};
-        }
-    }
+            }
     
 
-    int len = curCommand.length();
+        int len = curCommand.length();
 
-    std::string aCommand = "";
+        std::string aCommand = "";
 
-    for (std::string &it : *c) {
+        bool valid = false;
+        for (std::string &it : *c) {
 
-        std::string tmp = it.substr(0, len);
+            std::string tmp = it.substr(0, len);
 
-        if (tmp == curCommand) {
-            if (aCommand == "") {
-                aCommand = it;
-                std::cout << "the command read was : " << it << std::endl;
-            } else {
-                throw std::logic_error{"There are multiple matching commands for your input, please try again."};
-                return;
+            if (tmp == curCommand) {
+                if (aCommand == "") {
+                    aCommand = it;
+                    valid = true;
+                } else {
+                    valid = false;
+                }
             }
         }
-    }
 
-    curCommand = aCommand;
+        curCommand = aCommand;
+        if (valid) {
+            break;
+        }
+    }
 
 }
 
@@ -141,6 +147,8 @@ void Command::specialAction() {
     std::cout << "blind: color out the other player's board for one turn" << std::endl;
     std::cout << "L,J,I,...: replace the other player's next object with a block of your choice" << std::endl;
     std::cout << "heavy: make the other player's blocks heavier" << std::endl;
+    std::cout << "double: doubles the points you gain next time you earn points" << std::endl;
+    std::cout << "noscore: the next time your oppnent earns points, their score won't actually go up" << std::endl;
     runSpecial();
 }
 
@@ -149,10 +157,8 @@ void Command::runSpecial() {
 
     if (curCommand == "I" || curCommand == "J" || curCommand == "L" || curCommand == "S" ||  curCommand =="Z" ||  curCommand == "O" || curCommand == "T") {
         if (curPlayer == player1) {
-            std::cout << "set next for player2" << std::endl;
             player2->setForced(curCommand.at(0));
         } else {
-            std::cout << "set next for player1" << std::endl;
             player1->setForced(curCommand.at(0));
         }
     } else if (curCommand == "heavy") {
@@ -166,6 +172,14 @@ void Command::runSpecial() {
             player2->setBlind();
         } else {
             player1->setBlind();
+        }
+    } else if (curCommand == "double") {
+        curPlayer->setDouble();
+    } else if (curCommand == "noscore") {
+        if (curPlayer == player1) {
+            player2->setNoScore();
+        } else {
+            player1->setNoScore();
         }
     }
 }

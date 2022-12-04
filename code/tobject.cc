@@ -267,3 +267,6 @@ bool tObject::rotate(std::string direction) {
 
 }
 
+char tObject::getObjType() {
+    return 'T';
+}

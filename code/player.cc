@@ -17,7 +17,8 @@
 #include <iostream>
 
 Player::Player(int levelNum, bool random, std::string fileName, int seed): 
-    levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, curObj{nullptr}, dropped{false}, seed{seed}, fileName{fileName}, random{random}, curObjType{'\0'}, dead{false} {
+    levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, curObj{nullptr}, dropped{false}, seed{seed}, 
+    fileName{fileName}, random{random}, curObjType{'\0'}, dead{false}, revived{false}, scoreDouble{false}, noscore{false} {
  
     switch (levelNum) {
         case 0:
@@ -220,7 +221,6 @@ void Player::clear(){
 
 int Player::update(){
     std::vector<int> rows = removeRows();
-    std::cout << " remove DONE" << std::endl;
     updateScore(rows);
     std::cout << "update DONE" << std::endl;
     dropRows(rows);
@@ -273,12 +273,26 @@ void Player::dropRows(std::vector<int> rows) {
 
 void Player::updateScore(std::vector<int> rows){
     if (rows.size() > 0) {
-        score += (rows.size() + levelNum) * (rows.size() + levelNum);
+        if (scoreDouble) {
+            score += 2 * (rows.size() + levelNum) * (rows.size() + levelNum);
+        } else if (!noscore) {
+            score += (rows.size() + levelNum) * (rows.size() + levelNum);
+        }
+        int idx = 0;
         for (auto it : objects) {
             if (it->isGone()) {
-                score += it->getScore();
+                if (scoreDouble) {
+                    score += 2 * it->getScore();
+                } else if (!noscore) {
+                    score += it->getScore();
+                } else {
+                    it->getScore();
+                }
             }
+            idx++;
         }
+        scoreDouble = false;
+        noscore = false;
     }
 }
 
@@ -307,8 +321,6 @@ void Player::updateObj() {
     stepCount++;
     curObj = createNewObj(nextObj);
     curObjType = nextObj;
-    // objects.push_back(curObj);
-     
     nextObj = level->generate();
     dropped = false;
     if (levelNum == 4 && stepCount >= 5) {
@@ -385,3 +397,36 @@ char Player::getCurObj() {
 bool Player::isDead() {
     return dead;
 }
+
+bool Player::canRevive() {
+    return !revived;
+}
+
+void Player::doRevive() {
+    revived = true;
+    dead = false;
+    dropped = false;
+    score /= 2;
+    
+    std::vector<int> rows;
+    for (int i = 10; i >= 0; i--) {
+        rows.push_back(i);
+        for (int j = 0; j < 11; j++) {
+            board[i][j]->setEmpty();
+        }
+    }
+
+    for (auto it : objects) {
+        it->getScore();
+    }
+    insert();
+}
+
+void Player::setDouble() {
+    scoreDouble = true;
+}
+
+void Player::setNoScore() {
+    noscore = true;
+}
+

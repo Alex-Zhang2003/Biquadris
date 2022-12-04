@@ -28,6 +28,7 @@ public:
     bool isGone();
     int getScore();
     void clear();
+    virtual char getObjType() = 0;
 
 protected: 
 

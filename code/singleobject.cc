@@ -18,3 +18,7 @@ bool SingleObject::rotate(std::string dirction){
     return true;
 }
 
+char SingleObject::getObjType(){
+    return '*';
+}
+

@@ -26,7 +26,10 @@ class Player : public ABSPlayer{
     bool random;
     char curObjType;
     bool dead;
-    
+    bool revived;
+    bool scoreDouble;
+    bool noscore;
+
 public:
 
     Player(int level, bool random, std::string fileName, int seed);
@@ -60,6 +63,10 @@ public:
     void replaceCur(char obj);
     char getCurObj();
     bool isDead();
+    bool canRevive();
+    void doRevive();
+    void setDouble();
+    void setNoScore();
 
 private:
 

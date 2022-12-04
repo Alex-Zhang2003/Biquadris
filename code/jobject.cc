@@ -287,4 +287,6 @@ bool jObject::rotate(std::string direction) {
 
 }
 
-
+char jObject::getObjType() {
+    return 'J';
+}

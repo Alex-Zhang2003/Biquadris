@@ -29,4 +29,6 @@ bool oObject::rotate(std::string dirction){
     return true;
 }
 
-
+char oObject::getObjType() {
+    return 'O';
+}

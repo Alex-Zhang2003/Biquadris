@@ -87,7 +87,9 @@ bool sObject::rotate(std::string direction) {
     return false;
 }
 
-
+char sObject::getObjType() {
+    return 'S';
+}
 
 
 

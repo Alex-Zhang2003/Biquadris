@@ -1,9 +1,10 @@
 #include "textdisplay.h"
 #include <iostream>
 #include <string>
+#include "game.h"
 
-TextDisplay::TextDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}, HiScore{0} { 
+TextDisplay::TextDisplay(Player *player1, Player *player2, Game* game):
+    game{game}, player1{player1}, player2{player2} { 
     next = new char*[2];
     for (int i = 0; i < 2; i++) {
         next[i] = new char[28];
@@ -11,13 +12,8 @@ TextDisplay::TextDisplay(Player *player1, Player *player2):
     }
 }
 
-void TextDisplay::updateHiScore(int score) {
-    HiScore = score;
-}
-
-
 void TextDisplay::printTitle() {
-    std::cout << "        Hi Score: " << HiScore << "      " << std::endl;
+    std::cout << "        Hi Score: " << game->getHiScore() << "      " << std::endl;
     std::cout << std::endl;
     std::cout << "Player 1:         Player 2:" << std::endl;
     std::cout << "Level: " << player1->getLevel() << "          " << "Level: " << player2->getLevel() << std::endl;

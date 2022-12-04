@@ -77,3 +77,6 @@ bool iObject::rotate(std::string dirction){
     return false;
 }
 
+char iObject::getObjType() {
+    return 'I';
+}

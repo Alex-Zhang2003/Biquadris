@@ -1,10 +1,11 @@
 #include "graphdisplay.h"
 #include <iostream>
 #include <string>
+#include "game.h"
 
-GraphDisplay::GraphDisplay(Player *player1, Player *player2):
-    player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}}, HiScore{0},
-    scoreUpdated{true}, score1{-1}, score2{-1}, level1{-1}, level2{-1}, round{0} {
+GraphDisplay::GraphDisplay(Player *player1, Player *player2, Game* game):
+    game{game}, player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}},
+    scoreUpdated{true}, score1{-1}, score2{-1}, level1{-1}, level2{-1}, round{0}, hiScore{0} {
     board1 = new char*[18];
     board2 = new char*[18];
     for (int i = 0; i < 18; i++) {
@@ -17,19 +18,14 @@ GraphDisplay::GraphDisplay(Player *player1, Player *player2):
     }
 }
 
-void GraphDisplay::updateHiScore(int score) {
-    HiScore = score;
-    scoreUpdated = true;
-}
-
 
 void GraphDisplay::printTitle() {
     theScreen->drawString(80, 10, "Hi Score: ");
-    std::string HiScore_String = std::to_string(HiScore);
-    if (scoreUpdated) {
+    std::string HiScore_String = std::to_string(game->getHiScore());
+    if (hiScore != game->getHiScore()) {
         theScreen->fillRectangle(180, 0, 80, 10, Xwindow::White);
         theScreen->drawString(180, 10, HiScore_String);
-        scoreUpdated = false;
+        hiScore = game->getHiScore();
     }
     theScreen->drawString(10, 40, "Player 1:");
     theScreen->drawString(160, 40, "Player 2:");

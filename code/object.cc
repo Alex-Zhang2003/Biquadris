@@ -151,8 +151,7 @@ bool Object::isDropped() const{
 
 bool Object::isGone() {
     for (auto it : cells) {
-        if (!it->isEmpty()) {
-            // std::cout << "row " << it->getRow() << ", col " << it->getCol() << std::endl;
+        if (it->getChar() == getObjType()) {
             return false;
         }
     }

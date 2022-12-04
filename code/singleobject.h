@@ -13,6 +13,7 @@ public:
     ~SingleObject();
     bool insert();
     bool rotate(std::string dirction);
+    char getObjType();
 
 
 };

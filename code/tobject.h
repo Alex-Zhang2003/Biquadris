@@ -34,6 +34,7 @@ public:
     tObject(std::vector<std::vector<Cell*>>& board, int level);
     bool insert();
     bool rotate(std::string dirction);
+    char getObjType();
 
 
 };

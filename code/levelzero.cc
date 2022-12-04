@@ -12,20 +12,14 @@ char LevelZero::generate() {
 
     for (int i = 0; i <= word; i++) {
         if (!(input >> next)) {
-            word  = -1;
+            word  = 0;
+            std::ifstream tmp {file};
+            tmp >> next;
             break;
         }
     }
     word++;
-    char obj = next.at(0);
-
-    if (obj == 'I' || obj == 'L' || obj == 'J' || obj == 'S' || obj == 'Z' || obj == 'T' || obj == 'O') {
-        return obj;
-    } else {
-        throw (std::invalid_argument{"the character entered for LeveZero is not valid"});
-    }
-
-    
+    return next.at(0);
 }
 
 

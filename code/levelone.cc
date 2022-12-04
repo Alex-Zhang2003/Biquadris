@@ -4,7 +4,6 @@
 #include <iostream>
 
 LevelOne::LevelOne(int level, int seed): Level{level}, seed{seed}, SZProb{1.0/12.0}, otherProb{1.0/6.0} {
-    std::cout << otherProb << std::endl;
     srand(seed);
 }
 

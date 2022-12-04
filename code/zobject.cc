@@ -89,5 +89,7 @@ bool zObject::rotate(std::string direction) {
     return false;
 }
 
-
+char zObject::getObjType() {
+    return 'Z';
+}
 

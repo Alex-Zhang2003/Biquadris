@@ -30,6 +30,7 @@ public:
     bool playAgain();
     int getHiScore();
     void setHiScore(int score);
+    bool revivePlayer();
 
 private:
 
