@@ -2,8 +2,8 @@
 #include <iostream>
 #include <exception>
 
-Game::Game(bool readGraphic, int level, std::string file1, std::string file2, int seed):
-    readGraphic{readGraphic}, player1{level, true, file1, seed}, player2{level, true, file2, seed}, command{&player1, &player2, this}, textDisplay{&player1, &player2, this} {
+Game::Game(bool readGraphic, int level, std::string file1, std::string file2, bool test, int seed):
+    readGraphic{readGraphic}, player1{level, true, file1, seed}, player2{level, true, file2, seed}, command{&player1, &player2, this, test}, textDisplay{&player1, &player2, this} {
     
     hiScore = 0;
 
@@ -19,6 +19,7 @@ Game::Game(bool readGraphic, int level, std::string file1, std::string file2, in
     } else {
         graphicDisplay = nullptr;
     }
+    
 
 }
 
@@ -82,8 +83,13 @@ void Game::runTurn() {
         std::cout<< "it is player2's turn" << std::endl;
     }
 
+
     curPlayer->updateObj();
+    std::cout << "the next object is: " << curPlayer->getNext() << std::endl;
     curPlayer->insert();
+
+    curPlayer->notifyDisplay();
+
     
     if (curPlayer->isDead()) {
         if (curPlayer->canRevive()) {
@@ -101,6 +107,7 @@ void Game::runTurn() {
         command.readCommand();
         command.runCommand();
     }
+    
     
     int rowsCleared = curPlayer->update();
     if (rowsCleared >= 2) {

@@ -19,7 +19,6 @@ class GraphDisplay : public ABSDisplay {
     int score2;
     int level1;
     int level2;
-    int round;
     int hiScore;
 
 public:

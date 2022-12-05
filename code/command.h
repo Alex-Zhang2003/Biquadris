@@ -20,12 +20,13 @@ class Command {
     Player* curPlayer;
     std::istream *in;
     Game* game;
+    int numDrop;
 
     void readNum();
 
 public:
 
-    Command(Player* player1, Player* player2, Game* game, std::istream *in = &std::cin);
+    Command(Player* player1, Player* player2, Game* game, bool test, std::istream *in = &std::cin);
     ~Command();
     
     //throws logic error

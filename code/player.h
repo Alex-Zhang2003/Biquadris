@@ -67,6 +67,7 @@ public:
     void doRevive();
     void setDouble();
     void setNoScore();
+    void updateNext();
 
 private:
 

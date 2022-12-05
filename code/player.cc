@@ -43,10 +43,15 @@ Player::Player(int levelNum, bool random, std::string fileName, int seed):
             board[i].push_back(new Cell(i, j, '\0'));
         }
     }
-    nextObj = level->generate();
+
     if (levelNum >= 3) {
         heavy = 1;
     }
+
+    nextObj = level->generate();
+    // curObj = createNewObj(nextObj);
+    // insert();
+    // nextObj = level->generate();
 }
 
 Player::~Player() {
@@ -222,9 +227,7 @@ void Player::clear(){
 int Player::update(){
     std::vector<int> rows = removeRows();
     updateScore(rows);
-    std::cout << "update DONE" << std::endl;
     dropRows(rows);
-    std::cout << "drop DONE" << std::endl;
     if (blind) {
         blind = false;
     }
@@ -327,6 +330,10 @@ void Player::updateObj() {
         stepCount = 0;
         spawnSingleObj();
     }
+}
+
+void Player::updateNext() {
+    nextObj = level->generate();
 }
 
 void Player::spawnSingleObj() {

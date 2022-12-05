@@ -10,6 +10,7 @@ CMDL::~CMDL() {}
 void CMDL::startGame(){
     bool readGraphic = true;
     int seed = 1;
+    bool test = false;
     std::string file1 = "sequence1.txt";
     std::string file2 = "sequence2.txt";
     int level = 0;
@@ -30,17 +31,20 @@ void CMDL::startGame(){
         } else if (tmp == "-startlevel") {
             level = std::stoi(str[i+1]);
             i++;
+        } else if (tmp == "-enabletest") {
+            std::cout << "TEST MODE ENABLED" << std::endl;
+            test = true;
         }
         
     }
 
-    Game* play = new Game(readGraphic, level, file1, file2, seed);
+    Game* play = new Game(readGraphic, level, file1, file2, test, seed);
     std::string result = play->init();
     std::cout << "RESULT: " + result << std::endl;
     while (result == "Game Restarted"){
         int hiScore = play->getHiScore();
         delete play;
-        play = new Game(readGraphic, level, file1, file2, seed);
+        play = new Game(readGraphic, level, file1, file2, test, seed);
         play->setHiScore(hiScore);
         result = play->init();
     }   

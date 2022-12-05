@@ -4,21 +4,34 @@
 #include <exception>
 #include "game.h"
 
+#include <iostream>
 
-Command::Command(Player* player1, Player* player2, Game* game, std::istream *in): player1{player1}, player2{player2}, in{in}, game{game} {
+
+Command::Command(Player* player1, Player* player2, Game* game, bool test, std::istream *in): player1{player1}, player2{player2}, in{in}, game{game}, numDrop{0} {
     multiplier = 1;
     curCommand = "";
     curPlayer = player1;
-    commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", 
+    if (test) {
+        commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", 
                                         "I", "J", "L", "T", "S", "O", "Z", "restart"};
-
+    } else {
+        commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown"};
+    }
     special = {"blind", "heavy", "force", "I", "J", "L", "T", "S", "O", "Z", "double", "noscore"};
+
+
 
 }
 
 Command::~Command(){}
 
 void Command::readCommand(bool sp){
+
+    if (!sp) {
+        if (numDrop > 0) {
+            return;
+        }
+    }
 
     std::vector<std::string>*c;
     if (sp == false) {
@@ -90,6 +103,11 @@ void Command::runCommand(){
         multiplier = 1;
     } else if (curCommand == "drop") {
         curPlayer->drop();
+        if (numDrop > 0) {
+            numDrop--;
+        } else if (multiplier > 1) {
+            numDrop = multiplier - 1;
+        }
         multiplier = 1;
     } else if (curCommand == "levelup") {
         curPlayer->levelup(multiplier);

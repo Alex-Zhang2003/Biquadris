@@ -21,7 +21,7 @@ class Game {
 
 public: 
 
-    Game(bool readGraphic, int level, std::string file1, std::string file2, int seed = 1);
+    Game(bool readGraphic, int level, std::string file1, std::string file2, bool test, int seed = 1);
     ~Game();
     std::string init();
     void switchPlayer();
