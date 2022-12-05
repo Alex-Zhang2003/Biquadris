@@ -1,4 +1,5 @@
 #include "absplayer.h"
+#include "absdisplay.h"
 
 void ABSPlayer::notifyDisplay() {
     for (auto it : displays) {

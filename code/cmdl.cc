@@ -7,6 +7,8 @@ CMDL::CMDL(char** str, int num): num{num}, str{str} {}
 
 CMDL::~CMDL() {}
 
+// This function starts the game
+
 void CMDL::startGame(){
     bool readGraphic = true;
     int seed = 1;
@@ -40,7 +42,6 @@ void CMDL::startGame(){
 
     Game* play = new Game(readGraphic, level, file1, file2, test, seed);
     std::string result = play->init();
-    std::cout << "RESULT: " + result << std::endl;
     while (result == "Game Restarted"){
         int hiScore = play->getHiScore();
         delete play;

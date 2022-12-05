@@ -1,7 +1,5 @@
 #include "object.h"
 
-#include <iostream>
-
 Object::Object(std::vector<std::vector<Cell*>>& board, int level): board{board}, score{(level + 1) * (level + 1)}, gone{false}{
     dropped = false;
 }

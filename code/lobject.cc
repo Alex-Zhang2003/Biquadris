@@ -1,5 +1,4 @@
 #include "lobject.h"
-#include <iostream>
 
 lObject::lObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 

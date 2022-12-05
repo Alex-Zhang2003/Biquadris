@@ -21,6 +21,7 @@ class Command {
     std::istream *in;
     Game* game;
     int numDrop;
+    std::map<std::string, std::string> altName;
 
     void readNum();
 

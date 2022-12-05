@@ -1,5 +1,4 @@
 #include "iobject.h"
-#include <iostream>
 
 iObject::iObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
 

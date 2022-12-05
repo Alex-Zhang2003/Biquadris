@@ -14,8 +14,6 @@
 #include "oobject.h"
 #include "singleobject.h"
 
-#include <iostream>
-
 Player::Player(int levelNum, bool random, std::string fileName, int seed): 
     levelNum{levelNum}, score{0}, stepCount{0}, heavy{0}, blind{false}, curObj{nullptr}, dropped{false}, seed{seed}, 
     fileName{fileName}, random{random}, curObjType{'\0'}, dead{false}, revived{false}, scoreDouble{false}, noscore{false} {

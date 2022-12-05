@@ -85,7 +85,6 @@ void Game::runTurn() {
 
 
     curPlayer->updateObj();
-    std::cout << "the next object is: " << curPlayer->getNext() << std::endl;
     curPlayer->insert();
 
     curPlayer->notifyDisplay();

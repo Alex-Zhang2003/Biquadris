@@ -3,9 +3,8 @@
 #include <fstream>
 #include <exception>
 #include "game.h"
-
 #include <iostream>
-
+#include <algorithm>
 
 Command::Command(Player* player1, Player* player2, Game* game, bool test, std::istream *in): player1{player1}, player2{player2}, in{in}, game{game}, numDrop{0} {
     multiplier = 1;
@@ -13,14 +12,11 @@ Command::Command(Player* player1, Player* player2, Game* game, bool test, std::i
     curPlayer = player1;
     if (test) {
         commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", 
-                                        "I", "J", "L", "T", "S", "O", "Z", "restart"};
+                                        "I", "J", "L", "T", "S", "O", "Z", "restart", "rename"};
     } else {
-        commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown"};
+        commands = {"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "rename"};
     }
     special = {"blind", "heavy", "force", "I", "J", "L", "T", "S", "O", "Z", "double", "noscore"};
-
-
-
 }
 
 Command::~Command(){}
@@ -54,7 +50,7 @@ void Command::readCommand(bool sp){
             } else {
                 throw std::string {"EOF"};
             }
-            }
+        }
     
 
         int len = curCommand.length();
@@ -62,6 +58,13 @@ void Command::readCommand(bool sp){
         std::string aCommand = "";
 
         bool valid = false;
+        auto it = altName.find(curCommand);
+
+        if (it != altName.end()) {
+            curCommand = it->second;
+            return;
+        }
+
         for (std::string &it : *c) {
 
             std::string tmp = it.substr(0, len);
@@ -137,6 +140,16 @@ void Command::runCommand(){
         
     } else if (curCommand == "restart") {
         throw (std::string {"Game Restarted"});
+    } else if (curCommand == "rename") {
+        std::string command;
+        std::string name;
+        *in >> command;
+        while (std::find(commands.begin(), commands.end(), command) == commands.end()) {
+            std::cout << "The command you tried to rename was not a valid command, please try again" << std::endl;
+            *in>>command;
+        }
+        *in >> name;
+        altName.insert({name, command});
     }
 
 }

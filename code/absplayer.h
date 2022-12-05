@@ -1,8 +1,7 @@
-// Subject
+// Abstract Subject
 #ifndef ABSPLAYER_H
 #define ABSPLAYER_H
 #include <vector>
-#include "absdisplay.h"
 
 class ABSDisplay;
 
