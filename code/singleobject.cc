@@ -22,3 +22,5 @@ char SingleObject::getObjType(){
     return '*';
 }
 
+
+

@@ -287,3 +287,5 @@ bool lObject::rotate(std::string direction) {
 char lObject::getObjType() {
     return 'L';
 }
+
+
