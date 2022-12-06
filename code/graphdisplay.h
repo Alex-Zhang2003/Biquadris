@@ -13,8 +13,8 @@ class GraphDisplay : public ABSDisplay {
     std::unique_ptr<Player> player1;
     std::unique_ptr<Player> player2;
     std::unique_ptr<Xwindow> theScreen;
-    std::unique_ptr<std::unique_ptr<char[]>[]> board1 = std::make_unique< std::unique_ptr<char[]>[] >(18);
-    std::unique_ptr<std::unique_ptr<char[]>[]> board2 = std::make_unique< std::unique_ptr<char[]>[] >(18);
+    std::unique_ptr<std::unique_ptr<char[]>[]> board1;
+    std::unique_ptr<std::unique_ptr<char[]>[]> board2;
     bool scoreUpdated;
     int score1;
     int score2;

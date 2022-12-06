@@ -5,7 +5,10 @@
 
 GraphDisplay::GraphDisplay(std::unique_ptr<Player> player1, std::unique_ptr<Player> player2, std::unique_ptr<Game> game):
     game{std::make_unique<Game>(game)}, player1{std::make_unique<Player>(player1)}, player2{std::make_unique<Player>(player2)}, 
-    theScreen{std::make_unique<Xwindow>(300, 400)}, scoreUpdated{true}, 
+    theScreen{std::make_unique<Xwindow>(300, 400)}, 
+    board1 {std::make_unique< std::unique_ptr<char[]>[] >(18)},
+    board2 {std::make_unique< std::unique_ptr<char[]>[] >(18)},
+    scoreUpdated{true}, 
     score1{-1}, score2{-1}, level1{-1}, level2{-1}, hiScore{0} {
     for (int i = 0; i < 18; i++) {
         std::unique_ptr<char[]> rows1 = std::make_unique<char[]>(11);

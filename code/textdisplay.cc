@@ -4,7 +4,8 @@
 #include "game.h"
 
 TextDisplay::TextDisplay(std::unique_ptr<Player> player1, std::unique_ptr<Player> player2, std::unique_ptr<Game> game):
-    game{std::make_unique<Game>(game)}, player1{std::make_unique<Player>(player1)}, player2{std::make_unique<Player>(player2)} { 
+    game{std::make_unique<Game>(game)}, player1{std::make_unique<Player>(player1)}, player2{std::make_unique<Player>(player2)},
+    next {std::make_unique< std::unique_ptr<char[]>[] >(2)} { 
     for (int i = 0; i < 2; i++) {
         std::unique_ptr<char[]> rows = std::make_unique<char[]>(28);
         for (int j = 0; j < 28; j++) {
