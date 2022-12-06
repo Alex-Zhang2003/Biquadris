@@ -2,16 +2,16 @@
 #include "absdisplay.h"
 
 void ABSPlayer::notifyDisplay() {
-    for (auto it : displays) {
+    for (std::unique_ptr<ABSDisplay> it : displays) {
         it->notify();
     }
 }
 
-void ABSPlayer::attach(ABSDisplay *o) {
+void ABSPlayer::attach(std::unique_ptr<ABSDisplay> o) {
     displays.push_back(o);
 }
 
-void ABSPlayer::detach(ABSDisplay *o) {
+void ABSPlayer::detach(std::unique_ptr<ABSDisplay> o) {
     for (auto it = displays.begin(); it != displays.end(); ++it) {
         if (*it == o) {
             displays.erase(it);
@@ -21,9 +21,6 @@ void ABSPlayer::detach(ABSDisplay *o) {
 }
 
 void ABSPlayer::notifyBoard() {
-    for (auto it : displays) {
-        it->updateBoard();
-    }
 }
 
 
