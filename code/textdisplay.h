@@ -7,14 +7,14 @@
 class Game;
 
 class TextDisplay : public ABSDisplay {
-    Game* game;
-    Player* player1;
-    Player* player2;
+    std::unique_ptr<Game> game;
+    std::unique_ptr<Player> player1;
+    std::unique_ptr<Player> player2;
     int HiScore;
-    char** next;
+    std::unique_ptr<std::unique_ptr<char[]>[]> next = std::make_unique< std::unique_ptr<char[]>[] >(2);
 
 public:
-    TextDisplay(Player* player1, Player* player2, Game* game);
+    TextDisplay(std::unique_ptr<Player> player1, std::unique_ptr<Player> player2, std::unique_ptr<Game> game);
     void printTitle();
     void printBoard();
     void setNextOb(char val, int start);

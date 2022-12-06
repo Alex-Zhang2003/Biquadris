@@ -3,12 +3,14 @@
 #include <string>
 #include "game.h"
 
-TextDisplay::TextDisplay(Player *player1, Player *player2, Game* game):
-    game{game}, player1{player1}, player2{player2} { 
-    next = new char*[2];
+TextDisplay::TextDisplay(std::unique_ptr<Player> player1, std::unique_ptr<Player> player2, std::unique_ptr<Game> game):
+    game{std::make_unique<Game>(game)}, player1{std::make_unique<Player>(player1)}, player2{std::make_unique<Player>(player2)} { 
     for (int i = 0; i < 2; i++) {
-        next[i] = new char[28];
-        for (int j = 0; j < 28; j++) next[i][j] = ' ';
+        std::unique_ptr<char[]> rows = std::make_unique<char[]>(28);
+        for (int j = 0; j < 28; j++) {
+            rows[j] = ' ';
+        }
+        next[i] = std::move(rows);
     }
 }
 
@@ -120,8 +122,6 @@ void TextDisplay::notify() {
 
 
 TextDisplay::~TextDisplay() {
-    for (int i = 0; i < 2; i++) delete [] next[i];
-    delete [] next;
 }
 
 void TextDisplay::updateBoard() {}
