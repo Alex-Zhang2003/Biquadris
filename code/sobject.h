@@ -9,7 +9,7 @@ class sObject : public Object{
 public:
 
     
-    sObject(std::vector<std::vector<Cell*>>& board, int level);
+    sObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level);
     bool insert();
     bool rotate(std::string direction);
     char getObjType();

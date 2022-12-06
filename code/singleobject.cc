@@ -1,6 +1,6 @@
 #include "singleobject.h"
 
-SingleObject::SingleObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
+SingleObject::SingleObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 SingleObject::~SingleObject(){}
 

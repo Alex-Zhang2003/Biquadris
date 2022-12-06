@@ -1,12 +1,12 @@
 #include "object.h"
 
-Object::Object(std::vector<std::vector<Cell*>>& board, int level): board{board}, score{(level + 1) * (level + 1)}, gone{false}{
+Object::Object(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level): board{board}, score{(level + 1) * (level + 1)}, gone{false}{
     dropped = false;
 }
 
 Object::~Object(){}
 
-bool Object::contain(Cell* cell){
+bool Object::contain(std::shared_ptr<Cell> cell){
     bool isOwn = false;
     for (auto it : cells) {
         if (it == cell) {
@@ -15,7 +15,6 @@ bool Object::contain(Cell* cell){
         }
     }
     return isOwn;
-
 }
 
 bool Object::left(){
@@ -34,7 +33,7 @@ bool Object::left(){
         }
     }
 
-    std::vector<Cell*> tmp;
+    std::vector<std::shared_ptr<Cell>> tmp;
 
     for (auto it : cells) {
         int col = it->getCol() - 1;
@@ -70,7 +69,7 @@ bool Object::right(){
         }
     }
 
-    std::vector<Cell*> tmp;
+    std::vector<std::shared_ptr<Cell>> tmp;
 
     for (auto it : cells) {
         int col = it->getCol() + 1;
@@ -107,7 +106,7 @@ bool Object::down(){
         }
     }
 
-    std::vector<Cell*> tmp;
+    std::vector<std::shared_ptr<Cell>> tmp;
 
     for (auto it : cells) {
         int col = it->getCol();
@@ -135,11 +134,11 @@ void Object::drop(){
 
 }
 
-std::vector<std::vector<Cell*>>& Object::getBoard() const{
+std::vector<std::vector<std::shared_ptr<Cell>>>& Object::getBoard() const{
     return board;
 }
 
-std::vector<Cell*>& Object::getCells() {
+std::vector<std::shared_ptr<Cell>>& Object::getCells() {
     return cells;
 }
 

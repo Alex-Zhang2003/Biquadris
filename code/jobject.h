@@ -30,7 +30,7 @@ class jObject : public Object{
 public:
 
     
-    jObject(std::vector<std::vector<Cell*>>& board, int level);
+    jObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level);
     bool insert();
     bool rotate(std::string direction);
     char getObjType();

@@ -6,6 +6,7 @@
 #include "textdisplay.h"
 #include "graphdisplay.h"
 #include "command.h"
+#include <memory>
 
 
 class Game {
@@ -16,8 +17,8 @@ class Game {
     Player* curPlayer;
     int hiScore;
     Command command;
-    TextDisplay textDisplay;
-    GraphDisplay *graphicDisplay;
+    std::shared_ptr<TextDisplay> textDisplay;
+    std::shared_ptr<GraphDisplay> graphicDisplay;
 
 public: 
 

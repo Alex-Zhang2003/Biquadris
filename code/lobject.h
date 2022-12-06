@@ -31,7 +31,7 @@ class lObject : public Object {
 public:
 
     
-    lObject(std::vector<std::vector<Cell*>>& board, int level);
+    lObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level);
     bool insert();
     bool rotate(std::string direction);
     char getObjType();

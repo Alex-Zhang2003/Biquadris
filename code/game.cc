@@ -3,29 +3,24 @@
 #include <exception>
 
 Game::Game(bool readGraphic, int level, std::string file1, std::string file2, bool test, int seed):
-    readGraphic{readGraphic}, player1{level, true, file1, seed}, player2{level, true, file2, seed}, command{&player1, &player2, this, test}, textDisplay{&player1, &player2, this} {
+    readGraphic{readGraphic}, player1{level, true, file1, seed}, player2{level, true, file2, seed}, command{&player1, &player2, this, test} {
     
     hiScore = 0;
 
     curPlayer = &player1;
 
-    player1.attach(&textDisplay);
-    player2.attach(&textDisplay);
+    textDisplay = std::make_shared<TextDisplay> (&player1, &player2, this);
+    player1.attach(textDisplay);
+    player2.attach(textDisplay);
 
     if (readGraphic) {
-        graphicDisplay = new GraphDisplay(&player1, &player2, this);
+        graphicDisplay = std::make_shared<GraphDisplay> (&player1, &player2, this);
         player1.attach(graphicDisplay);
         player2.attach(graphicDisplay);
-    } else {
-        graphicDisplay = nullptr;
-    }
-    
-
+    } 
 }
 
-Game::~Game() {
-    delete graphicDisplay;
-}
+Game::~Game() {}
 
 std::string Game::init() {
     curPlayer->notifyDisplay();
@@ -101,10 +96,10 @@ void Game::runTurn() {
     }
 
     while (!curPlayer->isDropped()) {
-        curPlayer->notifyBoard();
         std::cout << "read Player Command" << std::endl;
         command.readCommand();
         command.runCommand();
+        curPlayer->notifyBoard();
     }
     
     
@@ -116,7 +111,7 @@ void Game::runTurn() {
         hiScore = curPlayer->getScore();
     }
 
-    curPlayer->notifyDisplay();
+    curPlayer->notifyBoard();
 }
 
 void Game::switchPlayer() {

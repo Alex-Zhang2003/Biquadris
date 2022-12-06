@@ -1,6 +1,6 @@
 #include "sobject.h"
 
-sObject::sObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
+sObject::sObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 bool sObject::insert() {
     for (int i = 0; i < 2; i++) {

@@ -4,17 +4,19 @@
 #include "game.h"
 
 GraphDisplay::GraphDisplay(Player *player1, Player *player2, Game* game):
-    game{game}, player1{player1}, player2{player2}, theScreen {new Xwindow{300, 400}},
+    game{game}, player1{player1}, player2{player2}, theScreen{std::make_unique<Xwindow>(300, 400)}, 
+    board1 {std::make_unique< std::unique_ptr<char[]>[] >(18)},
+    board2 {std::make_unique< std::unique_ptr<char[]>[] >(18)},
     scoreUpdated{true}, score1{-1}, score2{-1}, level1{-1}, level2{-1}, hiScore{0} {
-    board1 = new char*[18];
-    board2 = new char*[18];
     for (int i = 0; i < 18; i++) {
-        board1[i] = new char[11];
-        board2[i] = new char[11];
+        std::unique_ptr<char[]> rows1 = std::make_unique<char[]>(11);
+        std::unique_ptr<char[]> rows2 = std::make_unique<char[]>(11);
         for (int j = 0; j < 11; j++) {
-            board1[i][j] = ' ';
-            board2[i][j] = ' ';
+            rows1[j] = ' ';
+            rows2[j] = ' ';
         }
+    board1[i] = std::move(rows1);
+    board2[i] = std::move(rows2);
     }
 }
 
@@ -145,15 +147,7 @@ void GraphDisplay::notify() {
 }
 
 
-GraphDisplay::~GraphDisplay() {
-    delete theScreen;
-    for (int i = 0; i < 18; i++) {
-        delete [] board1[i];
-        delete [] board2[i];
-    }
-    delete [] board1;
-    delete [] board2;
-}
+GraphDisplay::~GraphDisplay() {}
 
 void GraphDisplay::updateBoard() {
     printBoard();

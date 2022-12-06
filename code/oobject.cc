@@ -1,6 +1,6 @@
 #include "oobject.h"
 
-oObject::oObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
+oObject::oObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 bool oObject::insert(){
 

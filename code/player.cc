@@ -20,25 +20,25 @@ Player::Player(int levelNum, bool random, std::string fileName, int seed):
  
     switch (levelNum) {
         case 0:
-            level = new LevelZero(levelNum, fileName);
+            level = std::make_unique<LevelZero> (levelNum, fileName);
             break;
         case 1:
-            level = new LevelOne(levelNum, seed);
+            level = std::make_unique<LevelOne> (levelNum, seed);
             break;
         case 2:
-            level = new LevelTwo(levelNum, seed);
+            level = std::make_unique<LevelTwo> (levelNum, seed);
             break;
         case 3:
-            level = new LevelThree(levelNum, seed, random, fileName);
+            level = std::make_unique<LevelThree> (levelNum, seed, random, fileName);
             break;
         case 4:
-            level = new LevelFour(levelNum, seed, random, fileName);
+            level = std::make_unique<LevelFour> (levelNum, seed, random, fileName);
             break;
     }
-    board = std::vector<std::vector<Cell*>> (18);
+    board = std::vector<std::vector<std::shared_ptr<Cell>>> (18);
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 11; j++) {
-            board[i].push_back(new Cell(i, j, '\0'));
+            board[i].push_back(std::make_shared<Cell> (i, j, '\0'));
         }
     }
 
@@ -47,27 +47,9 @@ Player::Player(int levelNum, bool random, std::string fileName, int seed):
     }
 
     nextObj = level->generate();
-    // curObj = createNewObj(nextObj);
-    // insert();
-    // nextObj = level->generate();
 }
 
-Player::~Player() {
-
-    for (auto it : board) {
-        for (auto jt : it) {
-            delete jt;
-        }
-    }
-
-    // add delete object if objects need to be pointers
-    for (auto it : objects) {
-        delete it;
-    }
-
-    delete level;
-
-}
+Player::~Player() {}
 
 void Player::fall() {
     for (int i = 0; i < heavy; i ++) {
@@ -157,20 +139,19 @@ void Player::levelup(int num) {
     levelNum += num;
     if (levelNum > 4) {
         levelNum = 4;
-    }
-    delete level;    
+    }  
     switch (levelNum) {
         case 1:
-            level = new LevelOne(levelNum, seed);
+            level = std::make_unique<LevelOne> (levelNum, seed);
             break;
         case 2:
-            level = new LevelTwo(levelNum, seed);
+            level = std::make_unique<LevelTwo> (levelNum, seed);
             break;
         case 3:
-            level = new LevelThree(levelNum, seed, random, fileName);
+            level = std::make_unique<LevelThree> (levelNum, seed, random, fileName);
             break;
         case 4:
-            level = new LevelFour(levelNum, seed, random, fileName);
+            level = std::make_unique<LevelFour> (levelNum, seed, random, fileName);
             break;
     }
 }
@@ -178,20 +159,19 @@ void Player::leveldown(int num){
     levelNum -= num;
     if (levelNum < 0) {
         levelNum = 0;
-    }
-    delete level;    
+    } 
     switch (levelNum) {
         case 0:
-            level = new LevelZero(levelNum, fileName);
+            level = std::make_unique<LevelZero> (levelNum, fileName);
             break;
         case 1:
-            level = new LevelOne(levelNum, seed);
+            level = std::make_unique<LevelOne> (levelNum, seed);
             break;
         case 2:
-            level = new LevelTwo(levelNum, seed);
+            level = std::make_unique<LevelTwo>(levelNum, seed);
             break;
         case 3:
-            level = new LevelThree(levelNum, seed, random, fileName);
+            level = std::make_unique<LevelThree> (levelNum, seed, random, fileName);
             break;
     }
 }
@@ -208,19 +188,15 @@ void Player::setForced(char obj){
     nextObj = obj;
 }
 
-void Player::clear(){
-    for (auto it : board) {
-        for (auto jt: it) {
-            jt->setEmpty();
-        }
-    }
-    for (auto it : objects) {
-        delete it;
-    }
+// void Player::clear(){
+//     for (auto it : board) {
+//         for (auto jt: it) {
+//             jt->setEmpty();
+//         }
+//     }
 
-    objects.clear();
-
-}
+//     objects.clear();
+// }
 
 int Player::update(){
     std::vector<int> rows = removeRows();
@@ -297,23 +273,23 @@ void Player::updateScore(std::vector<int> rows){
     }
 }
 
-Object* Player::createNewObj(char obj) {
-    Object* tmp = nullptr;
+std::shared_ptr<Object> Player::createNewObj(char obj) {
+    std::shared_ptr<Object> tmp;
 
     if (obj == 'I') {
-        tmp = new iObject(board, levelNum);
+        tmp = std::make_shared<iObject> (board, levelNum);
     } else if (obj == 'J') {
-        tmp = new jObject(board, levelNum);
+        tmp = std::make_shared<jObject> (board, levelNum);
     } else if (obj == 'L') {
-        tmp = new lObject(board, levelNum);
+        tmp = std::make_shared<lObject> (board, levelNum);
     } else if (obj == 'T') {
-        tmp = new tObject(board, levelNum);
+        tmp = std::make_shared<tObject> (board, levelNum);
     } else if (obj == 'S') {
-        tmp = new sObject(board, levelNum);
+        tmp = std::make_shared<sObject> (board, levelNum);
     } else if (obj == 'Z') {
-        tmp = new zObject(board, levelNum);
+        tmp = std::make_shared<zObject> (board, levelNum);
     } else if (obj == 'O') {
-        tmp = new oObject(board, levelNum);
+        tmp = std::make_shared<oObject> (board, levelNum);
     }
     return tmp;
 }
@@ -335,10 +311,9 @@ void Player::updateNext() {
 }
 
 void Player::spawnSingleObj() {
-    Object* single = new SingleObject(board, 4);
+    std::shared_ptr<SingleObject> single = std::make_shared<SingleObject> (board, 4);
     if (!single->insert()) {
         dead = true;
-        delete single;
     } else {
         single->drop();
         objects.push_back(single);
@@ -388,7 +363,6 @@ void Player::replaceCur(char obj) {
     if (curObj != nullptr) {
         curObj->clear();
         objects.pop_back();
-        delete curObj;
     }
     curObj = createNewObj(obj);
     curObjType = obj;

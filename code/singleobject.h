@@ -9,7 +9,7 @@ class SingleObject : public Object {
 public:
 
     
-    SingleObject(std::vector<std::vector<Cell*>>& board, int level);
+    SingleObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level);
     ~SingleObject();
     bool insert();
     bool rotate(std::string dirction);

@@ -3,6 +3,7 @@
 #define TEXTDISPLAY_H
 #include "absdisplay.h"
 #include "player.h"
+#include <memory>
 
 class Game;
 
@@ -11,7 +12,7 @@ class TextDisplay : public ABSDisplay {
     Player* player1;
     Player* player2;
     int HiScore;
-    char** next;
+    std::unique_ptr<std::unique_ptr<char[]>[]> next;
 
 public:
     TextDisplay(Player* player1, Player* player2, Game* game);

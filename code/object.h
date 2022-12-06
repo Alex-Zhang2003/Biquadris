@@ -4,19 +4,19 @@
 #include "cell.h"
 #include <string>
 #include <vector>
-
+#include <memory>
 
 class Object {
 
-    std::vector<std::vector<Cell*>>& board;
-    std::vector<Cell*> cells;
+    std::vector<std::vector<std::shared_ptr<Cell>>>& board;
+    std::vector<std::shared_ptr<Cell>> cells;
     bool dropped;
     int score;
     bool gone;
     
 public:
 
-    Object(std::vector<std::vector<Cell*>>& board, int level);
+    Object(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level);
     virtual ~Object();
     bool left();
     bool right();
@@ -32,9 +32,9 @@ public:
 
 protected: 
 
-    std::vector<std::vector<Cell*>>& getBoard() const;
-    std::vector<Cell*>& getCells();
-    bool contain(Cell* cell);
+    std::vector<std::vector<std::shared_ptr<Cell>>>& getBoard() const;
+    std::vector<std::shared_ptr<Cell>>& getCells();
+    bool contain(std::shared_ptr<Cell> cell);
 };
 
 

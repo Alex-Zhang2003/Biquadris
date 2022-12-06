@@ -7,11 +7,11 @@ void ABSPlayer::notifyDisplay() {
     }
 }
 
-void ABSPlayer::attach(ABSDisplay *o) {
+void ABSPlayer::attach(std::shared_ptr<ABSDisplay> o) {
     displays.push_back(o);
 }
 
-void ABSPlayer::detach(ABSDisplay *o) {
+void ABSPlayer::detach(std::shared_ptr<ABSDisplay> o) {
     for (auto it = displays.begin(); it != displays.end(); ++it) {
         if (*it == o) {
             displays.erase(it);

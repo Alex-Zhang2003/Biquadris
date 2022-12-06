@@ -4,11 +4,14 @@
 #include "game.h"
 
 TextDisplay::TextDisplay(Player *player1, Player *player2, Game* game):
-    game{game}, player1{player1}, player2{player2} { 
-    next = new char*[2];
+    game{game}, player1{player1}, player2{player2},
+    next {std::make_unique< std::unique_ptr<char[]>[] >(2)} { 
     for (int i = 0; i < 2; i++) {
-        next[i] = new char[28];
-        for (int j = 0; j < 28; j++) next[i][j] = ' ';
+        std::unique_ptr<char[]> rows = std::make_unique<char[]>(28);
+        for (int j = 0; j < 28; j++) {
+            rows[j] = ' ';
+        }
+        next[i] = std::move(rows);
     }
 }
 
@@ -119,10 +122,7 @@ void TextDisplay::notify() {
 }
 
 
-TextDisplay::~TextDisplay() {
-    for (int i = 0; i < 2; i++) delete [] next[i];
-    delete [] next;
-}
+TextDisplay::~TextDisplay() {}
 
 void TextDisplay::updateBoard() {}
 

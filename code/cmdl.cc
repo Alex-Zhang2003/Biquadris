@@ -2,6 +2,7 @@
 #include "cmdl.h"
 #include "game.h"
 #include <iostream>
+#include <memory>
 
 CMDL::CMDL(char** str, int num): num{num}, str{str} {}
 
@@ -40,16 +41,14 @@ void CMDL::startGame(){
         
     }
 
-    Game* play = new Game(readGraphic, level, file1, file2, test, seed);
+    auto play = std::make_unique<Game> (readGraphic, level, file1, file2, test, seed);
     std::string result = play->init();
     while (result == "Game Restarted"){
         int hiScore = play->getHiScore();
-        delete play;
-        play = new Game(readGraphic, level, file1, file2, test, seed);
+        play = std::make_unique<Game> (readGraphic, level, file1, file2, test, seed);
         play->setHiScore(hiScore);
         result = play->init();
-    }   
-    delete play;
+    }
 }
 
 

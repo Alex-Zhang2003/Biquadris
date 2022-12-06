@@ -1,6 +1,6 @@
 #include "iobject.h"
 
-iObject::iObject(std::vector<std::vector<Cell*>>& board, int level): Object{board, level}, rotatePos{0} {}
+iObject::iObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level): Object{board, level}, rotatePos{0} {}
 
 bool iObject::insert() {
     int tmpRow = 3;

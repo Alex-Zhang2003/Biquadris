@@ -9,7 +9,7 @@ class zObject : public Object{
 public:
 
     
-    zObject(std::vector<std::vector<Cell*>>& board, int level);
+    zObject(std::vector<std::vector<std::shared_ptr<Cell>>>& board, int level);
     bool insert();
     bool rotate(std::string direction);
     char getObjType();

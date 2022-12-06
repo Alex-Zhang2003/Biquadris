@@ -7,18 +7,19 @@
 #include "level.h"
 #include <string>
 #include <vector>
+#include <memory>
 
 class Player : public ABSPlayer{
 
-    std::vector<std::vector<Cell*>> board;
-    std::vector<Object*> objects;
-    Level* level;
+    std::vector<std::vector<std::shared_ptr<Cell>>> board;
+    std::vector<std::shared_ptr<Object>> objects;
+    std::unique_ptr<Level> level;
     int levelNum;
     int score;
     int stepCount;
     int heavy;
     bool blind;
-    Object* curObj;
+    std::shared_ptr<Object> curObj;
     char nextObj;
     bool dropped;
     int seed;
@@ -50,7 +51,7 @@ public:
     void setHeavy(int num = 1);
     void setBlind();
     void setForced(char obj);
-    void clear();
+    // void clear();
     int update();
     void updateObj();
     bool insert();
@@ -76,7 +77,7 @@ private:
     void updateScore(std::vector<int> rows);
     void fall();
     bool rowEmpty(int row);
-    Object* createNewObj(char obj);
+    std::shared_ptr<Object> createNewObj(char obj);
     void spawnSingleObj();
 };
 
